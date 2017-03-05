@@ -1,12 +1,15 @@
-package repository;
+package jcms.repository;
 
-import domain.Post;
+import jcms.domain.Post;
 import org.springframework.data.repository.CrudRepository;
+
 
 /**
  * Created by stanley on 04/03/17.
  */
+
+
 public interface PostRepository extends CrudRepository<Post, Long> {
 
-    public Post findById(Long id);
+    //public Post findById(Long id);
 }

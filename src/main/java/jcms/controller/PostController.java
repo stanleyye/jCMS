@@ -1,17 +1,18 @@
-package controller;
+package jcms.controller;
 
-import domain.Post;
+import jcms.domain.Post;
+import jcms.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import repository.PostRepository;
 
 /**
  * Created by stanley on 04/03/17.
  */
 
 @Controller
+@RequestMapping("/post")
 public class PostController {
 
     @Autowired
@@ -23,8 +24,10 @@ public class PostController {
     @RequestMapping("/create")
     @ResponseBody
     public String create() {
+        System.out.println("creating a post object...======================================================");
 
         try {
+            System.out.println("before creating a post object");
             Post post = new Post("Test Post", "hey", "l", 2);
             postRepository.save(post);
         }
