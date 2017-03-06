@@ -1,1 +1,1 @@
-INSERT INTO Post (publicationDate, title, summary, content, author) VALUES (NOW(), 'Hello World!', 'sdfasd', 'usefr', 1);
+INSERT INTO posts (title, summary, content, author) VALUES ('Test post 1!', 'sdfasd', 'usefr', 1);

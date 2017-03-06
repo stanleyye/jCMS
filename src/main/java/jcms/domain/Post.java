@@ -17,21 +17,9 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date publicationDate;
-
-    //@NotNull
     private String title;
-
-    //@NotNull
     private String summary;
-
-    //@NotNull
     private String content;
-
-    @NotNull
     private int author;
 
     public Post() {}
@@ -43,6 +31,10 @@ public class Post {
         this.author = author;
 
         System.out.println("object created");
+        //System.out.println("object publication date: " + this.publicationDate);
+        System.out.println("object title: " + this.title);
+        System.out.println("object content: " + this.content);
+        System.out.println("object author: " + this.author);
     }
 
 }
