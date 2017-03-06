@@ -3,9 +3,9 @@
  * Create the database schema for the application.
  */
 
-DROP TABLE IF EXISTS `posts`;
+--DROP TABLE IF EXISTS `posts`;
 
-CREATE TABLE `posts` (
+CREATE TABLE IF NOT EXISTS `posts` (
   `id` BIGINT(20) unsigned NOT NULL auto_increment,
   `publicationDate` TIMESTAMP DEFAULT NOW(),
   `title` VARCHAR(100) DEFAULT NULL,

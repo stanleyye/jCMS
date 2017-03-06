@@ -4,7 +4,7 @@
   "description": "A Content Management System built with a Java backend.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "webpack --watch -d"
   },
   "repository": {
     "type": "git",
@@ -22,13 +22,10 @@
   },
   "homepage": "https://github.com/stanleyye/jCMS#readme",
   "dependencies": {
+    "node-rest-client": "^3.0.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "rest": "^2.0.0",
     "webpack": "^2.2.1"
-  },
-  "scripts": {
-    "watch": "webpack --watch -d"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
