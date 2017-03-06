@@ -2,6 +2,9 @@
 node/
 node_modules/
 
+### Webpack ###
+*/**/built/
+
 ### Compilation ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
