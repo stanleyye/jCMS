@@ -6,3 +6,11 @@ The build tool and web server include Maven and Tomcat. The data and contents ar
 
 ## Setting up
 Make sure that you have mySQL installed. Then enter your credentials into the config.properties file, which jCMS will use to write into the DB.
+
+## Building and deploying
+```shell
+mvn clean spring-boot:run
+
+For more logging purposes
+mvn clean spring-boot:run -X
+```

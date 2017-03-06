@@ -1,3 +1,8 @@
+### Node ###
+node/
+node_modules/
+
+### Compilation ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
