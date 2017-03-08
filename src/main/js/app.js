@@ -17,19 +17,17 @@ class App extends React.Component {
 	componentDidMount() {
 	    var that = this;
 	    client.get("http://localhost:8080/posts", function (data, response) {
-	        var i, posts = JSON.parse(data.toString())._embedded.posts;
+	        var i, posts = JSON.parse(data.toString())['_embedded']['posts'];
 	        for (i = 0; i < posts.length; i+=1)
-	            this.state.posts.push(posts[i]);
+	            that.state.posts.push(posts[i]);
 
+	        console.log(data);
 	        console.log(data.toJSON());
+	        console.log(data.toString());
 	     
 	        console.log(JSON.parse(data.toString()));
-
-
-	 
-
-	        console.log(response);
-	        console.log(response.entity._embedded);
+	        console.log(JSON.parse(data.toString())['_embedded']);
+	        console.log(JSON.parse(data.toString())['_embedded']['posts']);
 
           that.setState({posts: that.state.posts});
           console.log("Posts state:");
@@ -48,9 +46,11 @@ const Posts = ({listOfPosts}) => (
   <div>
     {
       listOfPosts.map(post => (
-        <div class="post">
+        <div className="post" key={post['_links']['self']['href']}>
           <h1>{post.title}</h1>
+          <p>By {post.author}</p>
           <p>{post.summary}</p>
+          <p>{post.content}</p>
         </div>
       ))
     }
