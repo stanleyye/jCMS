@@ -29,21 +29,26 @@ public class User {
 
     private String name;
 
+    private String username;
+
+    private String email;
+
     private @JsonIgnore
     String password;
 
-    private String[] roles;
-
-    public void setPassword(String password) {
-        this.password = PASSWORD_ENCODER.encode(password);
-    }
+    private int userLevel;
 
     private User() {}
 
-    public User(String name, String password, String... roles) {
-
+    public User(String name, String username, String email, String password) {
         this.name = name;
+        this.username = username;
+        this.email = email;
         this.setPassword(password);
-        this.roles = roles;
+        this.userLevel = 5;
+    }
+
+    public void setPassword(String password) {
+        this.password = PASSWORD_ENCODER.encode(password);
     }
 }

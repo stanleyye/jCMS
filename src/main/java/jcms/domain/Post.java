@@ -20,11 +20,12 @@ public class Post {
     private String title;
     private String summary;
     private String content;
-    private int author;
+    @ManyToOne
+    private User author;
 
     public Post() {}
 
-    public Post(String title, String summary, String content, int author) {
+    public Post(String title, String summary, String content, User author) {
         this.title = title;
         this.summary = summary;
         this.content = content;
