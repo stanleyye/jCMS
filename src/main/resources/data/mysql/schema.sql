@@ -23,13 +23,3 @@ CREATE TABLE IF NOT EXISTS `users` (
   `userLevel` INT NOT NULL DEFAULT 0,
   PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---CREATE TRIGGER check_trigger
---  BEFORE INSERT
---  ON users
---  FOR EACH ROW
---BEGIN
---  IF users.age<0 OR users.age>50 THEN
---    CALL `Error: Wrong values for user level`; -- this trick will throw an error
---  END IF;
---END
