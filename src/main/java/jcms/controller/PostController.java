@@ -1,7 +1,7 @@
 package jcms.controller;
 
-import jcms.domain.Post;
-import jcms.domain.User;
+import jcms.model.Post;
+import jcms.model.User;
 import jcms.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +32,7 @@ public class PostController {
             System.out.println("before creating a post object");
             User user = new User("test", "test", "testing@gmail.com", "password");
             Post post = new Post("Test Post", "hey", "l", user);
+
             postRepository.save(post);
         }
         catch (Exception ex) {

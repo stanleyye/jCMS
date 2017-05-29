@@ -1,9 +1,8 @@
-package jcms.domain;
+package jcms.model;
 
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by stanley on 04/03/17.

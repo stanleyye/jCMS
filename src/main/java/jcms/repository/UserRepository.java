@@ -1,6 +1,6 @@
 package jcms.repository;
 
-import jcms.domain.User;
+import jcms.model.User;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

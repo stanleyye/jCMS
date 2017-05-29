@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from jcms.domain.repository -->
+		<relativePath/> <!-- lookup parent fjcms.modelain.repository -->
 	</parent>
 
 	<properties>

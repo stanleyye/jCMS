@@ -1,6 +1,6 @@
 package jcms.repository;
 
-import jcms.domain.Post;
+import jcms.model.Post;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 
