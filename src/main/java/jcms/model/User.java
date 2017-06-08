@@ -16,11 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 
 @Data
-@ToString(exclude = "password")
 @Entity
 public class User {
-    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
-
     private @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,24 +33,9 @@ public class User {
     @Email(message = "Email is invalid.")
     private String email;
 
-    private @JsonIgnore
     @Column(name = "password")
     @Length(min = 8, message = "Your password must contain at least 8 characters.")
-    String password;
+    private String password;
 
-    private int role;
-
-    private User() {}
-
-    public User(String name, String username, String email, String password) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.setPassword(password);
-        this.role = 5;
-    }
-
-    public void setPassword(String password) {
-        this.password = PASSWORD_ENCODER.encode(password);
-    }
+    private Role role;
 }
