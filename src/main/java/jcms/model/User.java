@@ -34,5 +34,6 @@ public class User {
     @Length(min = 8, message = "Your password must contain at least 8 characters.")
     private String password;
 
+    @Column(name = "userRole")
     private Role role;
 }
