@@ -2,13 +2,9 @@ package jcms.model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * User DAO.
@@ -17,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Data
 @Entity
+@Table(name="users")
 public class User {
     private @Id
     @Column(name = "id")

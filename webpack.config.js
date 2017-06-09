@@ -1,25 +1,30 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
-    entry: './src/main/js/app.js',
-    devtool: 'sourcemaps',
-    cache: true,
-    output: {
-        path: path.resolve(__dirname, 'src', 'main', 'resources', 'static',
-            'built'),
-        filename: 'bundle.js'
-    },
-    module: {
-        loaders: [
-            {
-                test: path.join(__dirname, '.'),
-                exclude: /(node_modules)/,
-                loader: 'babel-loader',
-                query: {
-                    cacheDirectory: true,
-                    presets: ['es2015', 'react']
-                }
-            }
-        ]
-    }
+  entry: './src/main/js/index.js',
+  devtool: 'sourcemaps',
+  cache: true,
+  output: {
+    path: path.resolve(__dirname, 'src', 'main', 'resources', 'static', 'built'),
+    filename: 'bundle.js'
+  },
+  devtool: 'sourcemap',
+  watch: true,
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node-modules/,
+        query: {
+          presets: ['es2015', 'react']
+        }
+      }
+    ]
+  }
 };

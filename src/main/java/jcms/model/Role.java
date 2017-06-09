@@ -3,13 +3,11 @@ package jcms.model;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name="roles")
 public class Role {
     private @Id
     @Column(name = "id")
