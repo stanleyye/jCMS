@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service("userService")
 public class UserServiceImplementation implements UserService {
+    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
-    private final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
     @Autowired
     private UserRepository userRepository;
 
@@ -19,7 +19,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     public User findByEmail(String email) {
-        return null;
+        return userRepository.findByEmail(email);
     }
 
     public void saveUser(User user) {
