@@ -32,18 +32,13 @@ public class LoginController {
     // TODO: move this key elsewhere
     private Key key = MacProvider.generateKey();
 
-    private String JwtCookieName = "jCMSCookie";
+    private String jwtCookieName = "jCMSCookie";
     @Autowired
     private UserService userService;
 
-    private String getBaseUrl(HttpServletRequest request) {
-        String baseUrl = request
-                .getRequestURL()
-                .substring(0, request.getRequestURL().length() - request.getRequestURI().length())
-                + request.getContextPath();
-        return baseUrl;
-    }
-
+    /*
+     * The POST Login controller for the /login endpoint.
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<?> login(
             @RequestParam(value="email") String email,
@@ -51,18 +46,20 @@ public class LoginController {
             HttpServletRequest request,
             HttpServletResponse response) {
         // TODO: Sanitize the parameters for possible security issues
-        // Check if there are any matching Jwt cookies
-        String jwtSubject = "";
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals(JwtCookieName)) {
-                jwtSubject = Jwts.parser()
-                        .setSigningKey(key)
-                        .parseClaimsJws(cookie.getValue())
-                        .getBody()
-                        .getSubject();
-                if (jwtSubject.equals(email)) {
-                    // TODO: Set location field in response header and then return the Response entity
-                }
+        HttpHeaders responseHeaders = new HttpHeaders();
+
+        /*
+         * Check if there are any matching Jwt cookies. If there are, redirect the request to the
+         * base URL.
+         */
+        if (isMatchingJwtSubject(request.getCookies(), jwtCookieName, email)) {
+            try {
+                setLocationToBaseUrlInHttpHeader(responseHeaders, request);
+                return new ResponseEntity<>(null, responseHeaders, HttpStatus.FOUND);
+            } catch (URISyntaxException e) {
+                // TODO: create a logger to handle these errors / exceptions
+                System.out.println(e.getMessage());
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
@@ -83,50 +80,123 @@ public class LoginController {
             return incorrectUserOrPassResponseEntity;
         }
 
-        // Sign the JWT using SHA-512 and compact it to a String form
-        String compactJws = Jwts.builder()
-                .setSubject(user.getEmail())
-                .signWith(SignatureAlgorithm.HS512, key)
-                .compact();
-
-        // Redirect the user to the main page once they log in by setting the response header location
-        HttpHeaders responseHeaders = new HttpHeaders();
-
         try {
-            URI location = new URI(getBaseUrl(request));
-            responseHeaders.setLocation(location);
+            setLocationToBaseUrlInHttpHeader(responseHeaders, request);
         } catch (URISyntaxException e) {
             // TODO: create a logger to handle these errors / exceptions
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        // Store JWT inside a cookie.
-        // Note: Storing JWT on the client side in localStorage/sessionStorage makes it vulnerable to XSS.
-        // Normally, a cookie's state needs to be stored on the server but with JWT, it encapsulates
-        // everything needed for the request. Cookies are vulnerable to CSRF but that threat can be
-        // greatly reduced with token patterns or a framework's CSRF protection mechanisms
-        // TODO: Set secure / domain / http only parameters for the cookie
-        final Cookie jwtCookie = new Cookie(JwtCookieName, compactJws);
-        // Max age of cookie = 7 days
-        jwtCookie.setMaxAge(604800);
-        response.addCookie(jwtCookie);
+        response.addCookie(createJwtCookie(user.getEmail()));
 
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.FOUND);
     }
 
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public ResponseEntity registerNewUser(@Valid User user) {
-//        User isExistingUser = userService.findByEmail(user.getEmail());
-//
-//        // Return bad request HTTP status if user already exists
-//        if (isExistingUser != null) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with the same email already exists.");
-//        }
-//
-//        // Save the user if user does not exist
-//        userService.saveUser(user);
-//
-//        return ResponseEntity.ok("User has been created.");
-//    }
+    /*
+     * The POST Register controller for the /register endpoint.
+     */
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<?> register(
+            @RequestParam(value="name") String name,
+            @RequestParam(value="username") String username,
+            @RequestParam(value="email") String email,
+            @RequestParam(value="password") String password,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        // TODO: sanitize parameters
+        boolean isExistingUsername = userService.existsByUsername(username);
+        boolean isExistingEmail = userService.existsByEmail(email);
+
+        if (isExistingUsername) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with the same username already exists.");
+        }
+
+        if (isExistingEmail) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with the same email already exists.");
+        }
+
+        // Create and save the user
+        User newUser = new User(name, username, email, password);
+        userService.saveUser(newUser);
+
+        return ResponseEntity.ok("User has been created.");
+    }
+
+    /*
+     * Create and return a cookie with a signed Json Web Token
+     *
+     * Note: Storing JWT on the client side in localStorage/sessionStorage makes it vulnerable to XSS.
+     * Normally, a cookie's state needs to be stored on the server but with JWT, it encapsulates
+     * everything needed for the request. Cookies are vulnerable to CSRF but that threat can be
+     * greatly reduced with token patterns or a framework's CSRF protection mechanisms
+     *
+     * @param jwtSubject The JSON Web token's subject (to be encoded)
+     * @return a cookie with an encoded JSON Web token
+     */
+    private Cookie createJwtCookie(String jwtSubject) {
+        // TODO: Set secure / domain / http only parameters for the cookie
+        // Sign the JWT using SHA-512 and compact it to a String form
+        String compactJws = Jwts.builder()
+                .setSubject(jwtSubject)
+                .signWith(SignatureAlgorithm.HS512, key)
+                .compact();
+
+        final Cookie jwtCookie = new Cookie(jwtCookieName, compactJws);
+        // Max age of cookie = 7 days (604800 seconds)
+        jwtCookie.setMaxAge(604800);
+        return jwtCookie;
+    }
+
+    /*
+     * Returns the base url of the request url string
+     *
+     * @param request The HTTP request
+     * @return the base URL string
+     */
+    private String getBaseUrl(HttpServletRequest request) {
+        String baseUrl = request
+                .getRequestURL()
+                .substring(0, request.getRequestURL().length() - request.getRequestURI().length())
+                + request.getContextPath();
+        return baseUrl;
+    }
+
+    /*
+     * Indicates whether or not there is a cookie that matches the correct
+     * JSON Web Token credentials
+     *
+     * @param cookies An array of cookies
+     * @param jwtCookieName The name of the jCMS cookie that stores the encoded JSON Web token credentials
+     * @param subjectToMatch The JSON Web token subject to match
+     * @returns a boolean indicating whether or not there is a cookie that matches the correct
+     *  JSON Web Token credentials
+     */
+    private boolean isMatchingJwtSubject(Cookie[] cookies, String jwtCookieName, String subjectToMatch) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(jwtCookieName)) {
+                String jwtSubject = Jwts.parser()
+                        .setSigningKey(key)
+                        .parseClaimsJws(cookie.getValue())
+                        .getBody()
+                        .getSubject();
+                if (jwtSubject.equals(subjectToMatch)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Set the HTTP header location field to the base url
+     *
+     * @param httpHeader The HTTP header to edit
+     * @param request The HTTP Request to extract base url from
+     * @throws URISyntaxException
+     */
+    private void setLocationToBaseUrlInHttpHeader(HttpHeaders httpHeader, HttpServletRequest request) throws URISyntaxException {
+        URI location = new URI(getBaseUrl(request));
+        httpHeader.setLocation(location);
+    }
 }

@@ -3,7 +3,10 @@ package jcms.service;
 import jcms.model.User;
 
 public interface UserService {
-    public User findByName(String name);
-    public User findByEmail(String email);
-    public void saveUser(User user);
+    boolean existsByEmail(String email);
+    boolean existsByUsername(String username);
+    User findByName(String name);
+    User findByEmail(String email);
+    void saveUser(User user);
+
 }
