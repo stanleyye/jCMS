@@ -101,26 +101,25 @@ public class LoginController {
             @RequestParam(value="name") String name,
             @RequestParam(value="username") String username,
             @RequestParam(value="email") String email,
-            @RequestParam(value="password") String password,
-            HttpServletRequest request,
-            HttpServletResponse response) {
+            @RequestParam(value="password") String password) {
         // TODO: sanitize parameters
         boolean isExistingUsername = userService.existsByUsername(username);
         boolean isExistingEmail = userService.existsByEmail(email);
 
         if (isExistingUsername) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with the same username already exists.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The username has already been taken.");
         }
 
         if (isExistingEmail) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with the same email already exists.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The specified email already exists.");
         }
 
         // Create and save the user
+        // TODO: Set up roles / admin levels
         User newUser = new User(name, username, email, password);
         userService.saveUser(newUser);
 
-        return ResponseEntity.ok("User has been created.");
+        return ResponseEntity.ok("");
     }
 
     /*

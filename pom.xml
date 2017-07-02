@@ -129,7 +129,6 @@
 							<goal>webpack</goal>
 						</goals>
 					</execution>
-
 				</executions>
 			</plugin>
 		</plugins>

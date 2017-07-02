@@ -29,5 +29,6 @@ CREATE TABLE IF NOT EXISTS posts (
 -- Role table
 CREATE TABLE IF NOT EXISTS roles (
     id BIGINT(20) unsigned NOT NULL auto_increment,
-    roleName VARCHAR(100) DEFAULT NULL
-)
+    roleName VARCHAR(100) DEFAULT NULL,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
