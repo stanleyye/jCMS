@@ -12,14 +12,22 @@ import javax.persistence.*;
 @Entity
 @Table(name="post")
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "summary")
     private String summary;
+
+    @Column(name = "content")
     private String content;
-    @ManyToOne
+
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn
     private User author;
 
     public Post() {}

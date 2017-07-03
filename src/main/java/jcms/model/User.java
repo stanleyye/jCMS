@@ -40,6 +40,7 @@ public class User {
     @NonNull
     private String password;
 
-    @ManyToOne
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn
     private Role userRole;
 }
