@@ -15,12 +15,12 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @RequiredArgsConstructor
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User {
-    private @Id
+    @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @Column(name = "name")
     @NonNull
@@ -40,6 +40,6 @@ public class User {
     @NonNull
     private String password;
 
-    @Column(name = "userRole")
-    private Role role;
+    @ManyToOne
+    private Role userRole;
 }

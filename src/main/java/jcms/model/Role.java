@@ -1,18 +1,15 @@
 package jcms.model;
 
-import lombok.Data;
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
+import lombok.Data;
 
 @Data
 @Entity
-@Table(name="roles")
+@Table(name="role")
 public class Role {
-    private @Id
-    @Column(name = "id")
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @Column(name = "roleName")
     private String roleName;
