@@ -33,13 +33,15 @@ public class LoginController {
     private Key key = MacProvider.generateKey();
 
     private String jwtCookieName = "jCMSCookie";
+    private final static String LOGIN_PATH = "/login";
+    private final static String REGISTER_PATH = "/register";
     @Autowired
     private UserService userService;
 
     /*
      * The POST Login controller for the /login endpoint.
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = LOGIN_PATH, method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<?> login(
             @RequestParam(value="email") String email,
             @RequestParam(value="password") String password,
@@ -96,7 +98,7 @@ public class LoginController {
     /*
      * The POST Register controller for the /register endpoint.
      */
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = REGISTER_PATH, method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<?> register(
             @RequestParam(value="name") String name,
             @RequestParam(value="username") String username,

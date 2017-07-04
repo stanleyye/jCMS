@@ -1,20 +1,34 @@
-var path = require('path');
-var webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+
+const extractSass = new ExtractTextPlugin({
+  filename: "bundle.css"
+});
+
 
 module.exports = {
-  entry: './src/main/js/index.js',
+  entry: ['./src/main/js/index.js', './src/main/resources/static/sass/main.scss'],
   devtool: 'sourcemaps',
   cache: true,
   output: {
-    path: path.resolve(__dirname, 'src', 'main', 'resources', 'static', 'built'),
+    path: path.resolve(__dirname, 'src', 'main', 'resources', 'static', 'build'),
     filename: 'bundle.js'
   },
-  devtool: 'sourcemap',
+  devtool: 'source-map',
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        test: /\.(sass|scss)$/,
+        exclude: /node-modules/,
+        use: extractSass.extract({
+          use: [{
+            loader: "css-loader"
+          }, {
+            loader: "sass-loader"
+          }],
+          fallback: "style-loader"
+        }),
       },
       {
         test: /\.js$/,
@@ -25,5 +39,8 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    extractSass
+  ]
 };
