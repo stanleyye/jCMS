@@ -11,6 +11,7 @@ Create a mySQL database called 'jcms' (you can change the name but make sure to 
 application.properities under datasource url).
 
 Then enter your credentials into the config.properties file, which jCMS will use to write into the DB.
+Maven will build and deploy all the files, including installing npm and running webpack to bundle all the modules.
 
 ## Building and deploying
 ```bash
