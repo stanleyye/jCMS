@@ -51,7 +51,7 @@ public class LoginController {
      */
     @RequestMapping(value = LOGIN_PATH, method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<?> login(
-            @RequestParam(value="email") String email,
+            @RequestParam(value="username") String username,
             @RequestParam(value="password") String password,
             HttpServletRequest request,
             HttpServletResponse response) {
@@ -62,7 +62,7 @@ public class LoginController {
          * Check if there are any matching Jwt cookies. If there are, redirect the request to the
          * base URL.
          */
-        if (isMatchingJwtSubject(request.getCookies(), jwtCookieName, email)) {
+        if (isMatchingJwtSubject(request.getCookies(), jwtCookieName, username)) {
             try {
                 setLocationToBaseUrlInHttpHeader(responseHeaders, request);
                 return new ResponseEntity<>(null, responseHeaders, HttpStatus.FOUND);
@@ -77,7 +77,7 @@ public class LoginController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Either the username or password is incorrect.");
 
         // Find the user
-        User user = userService.findByEmail(email);
+        User user = userService.findByUsername(username);
 
         // Return bad HTTP response if user does not exist
         if (user == null) {
@@ -98,7 +98,7 @@ public class LoginController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        response.addCookie(createJwtCookie(user.getEmail()));
+        response.addCookie(createJwtCookie(user.getUsername()));
 
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.FOUND);
     }

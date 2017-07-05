@@ -22,8 +22,8 @@ public class UserServiceImplementation implements UserService {
         return userRepository.existsByUsername(username);
     }
 
-    public User findByName(String name) {
-        return userRepository.findByName(name);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public User findByEmail(String email) {
