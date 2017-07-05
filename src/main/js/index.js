@@ -1,15 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 
-import App from './app.js';
-import configureStore from './store';
+import BottomNavBar from './navigation/bottom-nav-bar';
+import NavHeader from './navigation/nav-header';
 
-const store = configureStore();
+class Index extends React.Component {
+	render() {
+		return (
+			<div>
+				<NavHeader />
+				<h1>Main page</h1>
+				<BottomNavBar />
+			</div>
+		);
+	}
+}
 
 ReactDOM.render(
-	<Provider store={store}>
-  	<App/>
-  </Provider>,
+	<Index />,
   document.getElementById('root')
 );

@@ -39,7 +39,15 @@ public class LoginController {
     private UserService userService;
 
     /*
-     * The POST Login controller for the /login endpoint.
+     * GET method for the /login endpoint.
+     */
+    @RequestMapping(value = LOGIN_PATH, method = RequestMethod.GET)
+    public String getLoginPage() {
+        return "login";
+    }
+
+    /*
+     * POST method for the /login endpoint.
      */
     @RequestMapping(value = LOGIN_PATH, method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<?> login(
@@ -96,7 +104,15 @@ public class LoginController {
     }
 
     /*
-     * The POST Register controller for the /register endpoint.
+     * GET method for the /login endpoint.
+     */
+    @RequestMapping(value = REGISTER_PATH, method = RequestMethod.GET)
+    public String getRegisterPage() {
+        return "register";
+    }
+
+    /*
+     * POST Method for the /register endpoint.
      */
     @RequestMapping(value = REGISTER_PATH, method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<?> register(
