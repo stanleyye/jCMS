@@ -1,10 +1,24 @@
+import axios from 'axios';
 import React from 'react';
 import { Form, Text } from 'react-form';
+
+const handleLogin = (formData) => {
+  console.log(formData);
+  return axios.post('/login', formData)
+    .then(function(response) {
+      console.log("response", response);
+    })
+    .catch(function(error) {
+      console.log("error", error);
+    });
+}
 
 const LoginForm = (
   <Form 
     onSubmit={(values) => {
       console.log('Success!', values);
+      handleLogin(values);
+
     }}
 
     validate={values => {
