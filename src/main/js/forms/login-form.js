@@ -1,56 +1,43 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import React from 'react';
+import { Form, Text } from 'react-form';
 
-const validate = values => {
-  const errors = {};
+const LoginForm = (
+  <Form 
+    onSubmit={(values) => {
+      console.log('Success!', values);
+    }}
 
-  if (!values.username) {
-    errors.username = 'Required';
-  } else if (values.username.trim() == '') {
-    errors.username = 'Invalid username. Cannot be empty.';
-  }
+    validate={values => {
+      const { username, password } = values
+      return {
+        username: (!username || username.trim() === '') ? 'A username is required' : null, 
+        password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'The password must be at least 8 characters long' : null
+      }
+    }}
+  >
 
-  if (!values.password) {
-    errors.password = 'Required';
-  } else if (values.password.trim() == '') {
-    errors.password  = 'Invalid password. Cannot be empty.';
-  }
+    {({submitForm}) => {
+      return (
+        <form onSubmit={submitForm}>
 
-  return errors;
-}
+          <div>
+            <h6>Username</h6>
+            <Text field='username' placeholder='Username' />
+          </div>
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <div>
-    <input {...input} placeholder={label} type={type}/>
-    <div className="form-error">
-      {touched && ((error && <span>{error}</span>))}
-    </div>
-  </div>
+          <div>
+            <h6>Password</h6>
+            <Text field='password' placeholder='Password' />
+          </div>
+
+          <div>
+            <button type='submit'>Login</button>
+          </div>
+
+        </form>
+      )
+    }}
+  </Form>
 )
-
-class LoginForm extends Component {
-	render() {
-		const { handleSubmit, submitting } = this.props;
-
-		return (
-      <form onSubmit={handleSubmit} className="login-form">
-        <Field name="username" type="text" label="Username" component={renderField} />
-        <Field name="password" type="password" label="Password" component={renderField} />
-
-        <div className="form-submit">
-          <button type="submit" disabled={ submitting }>
-            Submit
-          </button>
-        </div>
-      </form>
-    );
-	}
-}
-
-// Decorate the form component
-LoginForm = reduxForm({
-  form: 'login', // a unique name for this form
-  validate,
-})(LoginForm);
 
 export default LoginForm;

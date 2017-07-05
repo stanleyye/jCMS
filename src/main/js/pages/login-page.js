@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import LoginFormContainer from '../containers/login-form-container';
-import LoginForm from '../components/login-form';
+import LoginForm from '../forms/login-form';
 
 class LoginPage extends React.Component {
 	// constructor(props) {
@@ -60,14 +59,14 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <h1>
-          Login Page
-        </h1>
-      
-        <LoginFormContainer />
+        <h1>Login</h1>
+        <LoginForm />
       </div>
     );
   }
 }
 
-export default LoginPage;
+ReactDOM.render(
+  <LoginPage />,
+  document.getElementById('login-page')
+);
