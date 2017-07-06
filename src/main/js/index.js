@@ -1,22 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 
-import BottomNavBar from './navigation/bottom-nav-bar';
-import NavHeader from './navigation/nav-header';
+import App from './app'
 
-class Index extends React.Component {
-	render() {
-		return (
-			<div>
-				<NavHeader />
-				<h1>Main page</h1>
-				<BottomNavBar />
-			</div>
-		);
-	}
-}
-
-ReactDOM.render(
-	<Index />,
+ReactDOM.render((
+	<BrowserRouter>
+    <App />
+  </BrowserRouter>
+	),
   document.getElementById('root')
 );

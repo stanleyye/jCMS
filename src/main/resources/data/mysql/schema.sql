@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS post (
     title VARCHAR(100) DEFAULT NULL,
     summary VARCHAR(255) DEFAULT NULL,
     content VARCHAR(255) DEFAULT NULL,
-    authorId BIGINT(20) unsigned NOT NULL,
+    authorId BIGINT(20) unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
     CONSTRAINT `FK12njtf8e0jmyb45lqfpt6ad89` FOREIGN KEY (authorId) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

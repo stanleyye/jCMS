@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import RegisterForm from '../forms/register-form';
+import RegisterForm from '../forms/register-form'
 
 class RegisterPage extends React.Component {
   render() {
@@ -14,7 +14,4 @@ class RegisterPage extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <RegisterPage />,
-  document.getElementById('register-page')
-);
+export default RegisterPage
