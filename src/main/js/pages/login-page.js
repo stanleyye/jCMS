@@ -6,7 +6,7 @@ import LoginForm from '../forms/login-form'
 class LoginPage extends React.Component {
   render() {
     return (
-      <div>
+      <div className="login-register-container">
         <h1>Login</h1>
         <LoginForm />
       </div>
@@ -14,4 +14,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginForm
+export default LoginPage

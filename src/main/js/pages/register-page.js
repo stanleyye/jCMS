@@ -6,7 +6,7 @@ import RegisterForm from '../forms/register-form'
 class RegisterPage extends React.Component {
   render() {
     return (
-      <div>
+      <div className="login-register-container">
         <h1>Register</h1>
         <RegisterForm />
       </div>

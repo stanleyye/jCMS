@@ -28,7 +28,7 @@ class RegisterForm extends React.Component {
             name: (!name || name.trim() === '') ? 'Your name is invalid' : null,
             username: (!username || username.trim() === '') ? 'A username is required' : null, 
             email: (!email || email.trim() === '' || !emailRegex.test(email)) ?  'The email address is invalid' : null,
-            password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'The password must be at least 8 characters long' : null
+            password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'Password must be at least 8 characters long' : null
           }
         }}
       >
@@ -38,27 +38,27 @@ class RegisterForm extends React.Component {
             <form onSubmit={submitForm}>
 
               <div>
-                <h6>Name</h6>
+                <h4 className="input-heading">Name</h4>
                 <Text field='name' placeholder='Name' />
               </div>
 
               <div>
-                <h6>Username</h6>
+                <h4 className="input-heading">Username</h4>
                 <Text field='username' placeholder='Username' />
               </div>
 
               <div>
-                <h6>Email</h6>
+                <h4 className="input-heading">Email</h4>
                 <Text field='email' placeholder='Email' />
               </div>
 
               <div>
-                <h6>Password</h6>
+                <h4 className="input-heading">Password</h4>
                 <Text field='password' placeholder='Password' />
               </div>
 
               <div>
-                <button type='submit'>Register</button>
+                <button type='submit'>Sign up</button>
               </div>
 
             </form>

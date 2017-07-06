@@ -4,7 +4,10 @@ import { Form, Text } from 'react-form';
 
 const handleLogin = (formData) => {
   console.log(formData);
-  return axios.post('/login', formData)
+  return axios.post('/login', {
+      username: formData.username,
+      password: formData.password
+    })
     .then(function(response) {
       console.log("response", response);
     })
@@ -36,12 +39,12 @@ class LoginForm extends React.Component {
           <form onSubmit={submitForm}>
 
             <div>
-              <h6>Username</h6>
+              <h4 className="input-heading">Username</h4>
               <Text field='username' placeholder='Username' />
             </div>
 
             <div>
-              <h6>Password</h6>
+              <h4 className="input-heading">Password</h4>
               <Text field='password' placeholder='Password' />
             </div>
 
