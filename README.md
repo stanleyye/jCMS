@@ -1,6 +1,6 @@
 # jCMS
 
-A Content Management System developed with React, Java Spring Boot and Hibernate.
+A Content Management System developed with React, Java Spring Boot, MVC, Data and Hibernate.
 The frontend side uses Babel, React and Webpack.
 The build tool and web server include Maven and Tomcat. The data and contents are stored using mySQL.
 
