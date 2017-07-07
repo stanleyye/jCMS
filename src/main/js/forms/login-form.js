@@ -4,10 +4,8 @@ import { Form, Text } from 'react-form';
 
 const handleLogin = (formData) => {
 	return axios.post('/login', {
-			params: {
-				username: formData.username,
-				password: formData.password
-			}
+			username: formData.username,
+			password: formData.password
 		})
 		.then(function(response) {
 			console.log("response", response);
@@ -20,7 +18,7 @@ const handleLogin = (formData) => {
 class LoginForm extends React.Component {
 	render() {
 		return (
-			<Form 
+			<Form
 				onSubmit={(values) => {
 					console.log('Success!', values);
 					handleLogin(values);
@@ -29,7 +27,7 @@ class LoginForm extends React.Component {
 			validate={values => {
 				const { username, password } = values
 				return {
-					username: (!username || username.trim() === '') ? 'A username is required' : null, 
+					username: (!username || username.trim() === '') ? 'A username is required' : null,
 					password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'The password must be at least 8 characters long' : null
 				}
 			}}
@@ -46,7 +44,7 @@ class LoginForm extends React.Component {
 
 						<div>
 							<h4 className="input-heading">Password</h4>
-							<Text field='password' placeholder='Password' />
+							<Text type='password' field='password' placeholder='Password' />
 						</div>
 
 						<div>

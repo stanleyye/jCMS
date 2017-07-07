@@ -15,7 +15,7 @@ const handleLogin = (formData) => {
 class RegisterForm extends React.Component {
 	render() {
 		return (
-			<Form 
+			<Form
 				onSubmit={(values) => {
 					console.log('Success!', values);
 					handleLogin(values);
@@ -26,7 +26,7 @@ class RegisterForm extends React.Component {
 					const { name, username, email, password } = values
 					return {
 						name: (!name || name.trim() === '') ? 'Your name is invalid' : null,
-						username: (!username || username.trim() === '') ? 'A username is required' : null, 
+						username: (!username || username.trim() === '') ? 'A username is required' : null,
 						email: (!email || email.trim() === '' || !emailRegex.test(email)) ?  'The email address is invalid' : null,
 						password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'Password must be at least 8 characters long' : null
 					}
@@ -54,7 +54,7 @@ class RegisterForm extends React.Component {
 
 							<div>
 								<h4 className="input-heading">Password</h4>
-								<Text field='password' placeholder='Password' />
+								<Text type='password' field='password' placeholder='Password' />
 							</div>
 
 							<div>
