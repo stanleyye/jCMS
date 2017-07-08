@@ -1,6 +1,7 @@
 package jcms.security;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,15 +13,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.csrf().disable() // CRSF protection needs to be disabled to handle the JWT cookies
 			.authorizeRequests()
-				.antMatchers("/admin/**")
-				.authenticated()
+				.antMatchers("/login").permitAll()
+				.antMatchers("/admin/**").authenticated()
 				.and()
 			.formLogin()
 				.loginPage("/login")
-				.permitAll()
-				.defaultSuccessUrl("/")
-				.failureUrl("/error")
+//				.defaultSuccessUrl("/")
+//				.failureUrl("/error")
 				.and()
 			.logout()
 				.logoutSuccessUrl("/")
@@ -34,5 +35,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			// Filter other requests to check JWT
 			.addFilterBefore(new JWTAuthenticationFilter(),
 				UsernamePasswordAuthenticationFilter.class);
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// TODO: Use JDBC to authenticate user
+		auth.inMemoryAuthentication()
+			.withUser("admin")
+			.password("password")
+			.roles("ADMIN");
 	}
 }

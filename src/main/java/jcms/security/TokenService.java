@@ -57,7 +57,7 @@ public class TokenService {
 	 * Returns a new token containing the token subject from the JWT cookie
 	 *
 	 * @param request The HTTP request
-	 * @return an 'Authentication' token for simple representation of username and password
+	 * @return an 'Authentication' implementation token for simple representation of username and password
 	 */
 	public static Authentication getJWTAuthentication(HttpServletRequest request) {
 		String tokenSubject = getJwtCookieSubject(request.getCookies());
@@ -77,6 +77,7 @@ public class TokenService {
 	 *  JSON Web Token credentials
 	 */
 	public static String getJwtCookieSubject(Cookie[] cookies) {
+		if (cookies == null) return null;
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals(JWT_COOKIE_NAME)) {
 				String jwtSubject = Jwts.parser()
