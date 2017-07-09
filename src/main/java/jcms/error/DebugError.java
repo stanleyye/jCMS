@@ -2,7 +2,7 @@ package jcms.error;
 
 import java.util.Map;
 
-/*
+/**
  * Used to display error details when debug mode is on (specified in the config files)
  * Based off of Joni Karppinen's Github gist (https://gist.github.com/jonikarppinen/662c38fb57a23de61c8b)
  */

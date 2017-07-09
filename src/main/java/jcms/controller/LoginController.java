@@ -17,24 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class LoginController {
-    private final static String LOGIN_PATH = "/login";
     private final static String REGISTER_PATH = "/register";
 
     @Autowired
     private UserService userService;
 
-    /*
-     * POST Method for the /register endpoint.
+    /**
+     * POST Method for the /register user endpoint.
      */
     @RequestMapping(value = REGISTER_PATH, method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<?> register(
-            @RequestParam(value="name") String name,
-            @RequestParam(value="username") String username,
-            @RequestParam(value="email") String email,
-            @RequestParam(value="password") String password) {
-        // TODO: sanitize parameters
-        boolean isExistingUsername = userService.existsByUsername(username);
-        boolean isExistingEmail = userService.existsByEmail(email);
+    public ResponseEntity<?> register(@RequestBody User newUser) {
+        boolean isExistingUsername = userService.existsByUsername(newUser.getUsername());
+        boolean isExistingEmail = userService.existsByEmail(newUser.getEmail());
 
         if (isExistingUsername) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The username has already been taken.");
@@ -44,15 +38,13 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The specified email already exists.");
         }
 
-        // Create and save the user
-        // TODO: Set up roles / admin levels
-        User newUser = new User(name, username, email, password);
+        // Save the user
         userService.saveUser(newUser);
 
-        return ResponseEntity.ok("");
+        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
-    /*
+    /**
      * Returns the base url of the request url string
      *
      * @param request The HTTP request
@@ -66,7 +58,7 @@ public class LoginController {
         return baseUrl;
     }
 
-    /*
+    /**
      * Set the HTTP header location field to the base url
      *
      * @param httpHeader The HTTP header to edit

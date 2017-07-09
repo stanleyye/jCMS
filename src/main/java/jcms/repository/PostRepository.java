@@ -1,8 +1,10 @@
 package jcms.repository;
 
 import jcms.model.Post;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
-    Post findById(Long id);
+import java.math.BigInteger;
+
+public interface PostRepository extends JpaRepository<Post, BigInteger> {
+    Post findById(BigInteger id);
 }

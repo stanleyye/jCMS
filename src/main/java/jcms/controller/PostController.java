@@ -4,40 +4,46 @@ import jcms.model.Post;
 import jcms.model.User;
 import jcms.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * Created by stanley on 04/03/17.
- */
+import java.util.List;
 
 @Controller
-@RequestMapping("/posts")
+@RequestMapping("/admin/posts")
 public class PostController {
+	public static final String CREATE_PATH = "/create";
+	public static final String GET_PATH = "/";
 
     @Autowired
     private PostRepository postRepository;
 
     /**
-     * GET /create  --> Create a new post and save it in the database.
+     * GET endpoint for the get posts path
      */
-    @RequestMapping("/create")
-    @ResponseBody
-    public String create() {
-        System.out.println("creating a post object...======================================================");
+    @RequestMapping(value = GET_PATH, method = RequestMethod.GET)
+	public ResponseEntity<?> getPosts() {
+    	List<Post> listOfAllPosts = postRepository.findAll();
+    	return ResponseEntity.status(HttpStatus.FOUND).body(listOfAllPosts);
+	}
 
+    /**
+     * POST endpoint for the create posts path
+     */
+    @RequestMapping(value = CREATE_PATH, method = RequestMethod.POST)
+    public ResponseEntity<?> createPost(@RequestBody Post post) {
         try {
-            String regex ="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-            System.out.println("before creating a post object");
-            //User user = new User("test", "test", "testing@gmail.com", "password");
-            //Post post = new Post("Test Post", "hey", "l", user);
-
-            //postRepository.save(post);
+			postRepository.save(post);
+        } catch (Exception ex) {
+        	System.out.println(ex.getMessage());
+        	System.out.println(ex.getStackTrace());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving the post");
         }
-        catch (Exception ex) {
-            return "Error creating the post: " + ex.toString();
-        }
-        return "Post created";
+        return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
 }

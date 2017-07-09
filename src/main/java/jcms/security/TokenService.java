@@ -23,7 +23,7 @@ public class TokenService {
 	// different.
 	public static final Key SIGNING_KEY = MacProvider.generateKey();
 
-	/*
+	/**
 	 * Adds an authentication cookie encoded with a JWT in the response header
 	 *
 	 * @param response The response header
@@ -33,7 +33,7 @@ public class TokenService {
 		response.addCookie(createJwtCookie(jwtSubject));
 	}
 
-	/*
+	/**
 	 * Create and return a cookie with a signed Json Web Token
 	 *
 	 * Note: Storing JWT on the client side in localStorage/sessionStorage makes it vulnerable to XSS.
@@ -61,7 +61,7 @@ public class TokenService {
 		return jwtCookie;
 	}
 
-	/*
+	/**
 	 * Returns a new token containing the token subject from the JWT cookie
 	 *
 	 * @param request The HTTP request
@@ -76,11 +76,10 @@ public class TokenService {
 		return null;
 	}
 
-	/*
+	/**
 	 * Gets the JSON Web token subject from the cookie
 	 *
 	 * @param cookies An array of cookies
-	 * @param subjectToMatch The JSON Web token subject to match
 	 * @returns a boolean indicating whether or not there is a cookie that matches the correct
 	 *  JSON Web Token credentials
 	 */
