@@ -4,7 +4,7 @@ $form-error-message-color : #ab1818;
 $form-input-focus-color: #87bae8;
 $submit-button-background-color : #287bbc;
 
-html, 
+html,
 body {
 	height: 100%;
 	min-height: 100%;
@@ -13,6 +13,7 @@ body {
 
 body {
 	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
 }
 
 .login-register-container {
@@ -56,5 +57,29 @@ body {
 			color: #fff;
 			box-shadow: none;
 		}
+	}
+}
+
+.error-page {
+	position: absolute;
+	top: 22%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-22%);
+	-ms-transform: translate(-50%,-22%);
+	transform: translate(-50%,-22%);
+
+	.error-page-main-message {
+		margin-bottom: 40px;
+	}
+
+	.error-page-debug-details {
+		.debug-details-title {
+			display: inline-block;
+			font-weight: bold;
+		}
+	}
+
+	.error-page-return {
+		margin-top: 35px;
 	}
 }

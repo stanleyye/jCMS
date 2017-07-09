@@ -9,20 +9,56 @@
 </head>
 
 <body>
-	<h1 class="text-center" th:text="${errorStatus} + '. ' + ${errorMessage}"></h1>
+	<div class="error-page">
+		<h1 class="text-center error-page-main-message" th:text="${errorStatus} + '. ' + ${errorMessage}"></h1>
 
-	<div th:if="${isDebugMode}" class="text-center">
-		<p th:text="'HTTP Error Status ' + ${debugError.httpStatus}"></p>
-		<p th:text="'Timestamp ' + ${debugError.timestamp}"></p>
-		<p th:text="'Error ' + ${debugError.error}"></p>
-		<p th:text="'Error message ' + ${debugError.message}"></p>
-		<p th:text="'Stack trace ' + ${debugError.trace}"></p>
-	</div>
+		<div th:if="${isDebugMode}" class="text-center error-page-debug-details">
+			<div th:inline="text">
+				<h4 class="debug-details-title">
+					HTTP Error Status:
+				</h4>
 
-	<div class="text-center">
-		<a href="/">
-			<h4>Return home</h4>
-		</a>
+				[[${debugError.httpStatus}]]
+			</div>
+
+			<div th:inline="text">
+				<h4 class="debug-details-title">
+					Timestamp:
+				</h4>
+
+				[[${debugError.timestamp}]]
+			</div>
+
+			<div th:inline="text">
+				<h4 class="debug-details-title">
+					Error:
+				</h4>
+
+				[[${debugError.error}]]
+			</div>
+
+			<div th:inline="text">
+				<h4 class="debug-details-title">
+					Error message:
+				</h4>
+
+				[[${debugError.message}]]
+			</div>
+
+			<div th:inline="text">
+				<h4 class="debug-details-title">
+					Stack trace:
+				</h4>
+
+				[[${debugError.trace}]]
+			</div>
+		</div>
+
+		<div class="text-center error-page-return">
+			<a href="/">
+				<h4>Return home</h4>
+			</a>
+		</div>
 	</div>
 </body>
 </html>
