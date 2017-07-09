@@ -7,11 +7,11 @@ import java.util.Map;
  * Based off of Joni Karppinen's Github gist (https://gist.github.com/jonikarppinen/662c38fb57a23de61c8b)
  */
 public class DebugError {
-	private String error;
-	private String message;
-	private Integer httpStatus;
-	private String timestamp;
-	private String trace;
+	public String error;
+	public String message;
+	public Integer httpStatus;
+	public String timestamp;
+	public String trace;
 
 	public DebugError(int httpStatus, Map<String, Object> errorAttributes) {
 		this.httpStatus = httpStatus;
