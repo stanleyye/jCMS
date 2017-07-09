@@ -10,7 +10,15 @@
 
 <body>
 	<h1 class="text-center" th:text="${errorStatus} + '. ' + ${errorMessage}"></h1>
-	<a href="/">Return home</a>
+
+	<div th:if="${isDebugMode}" class="text-center">
+		<p th:text="'HTTP Error Status ' + ${debugError.httpStatus}"></p>
+		<p th:text="'Timestamp ' + ${debugError.timestamp}"></p>
+		<p th:text="'Error ' + ${debugError.error}"></p>
+		<p th:text="'Error message ' + ${debugError.message}"></p>
+		<p th:text="'Stack trace ' + ${debugError.trace}"></p>
+	</div>
+	<a class="text-center" href="/">Return home</a>
 
 	<script src="build/bundle.js"></script>
 </body>
