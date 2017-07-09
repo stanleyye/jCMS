@@ -11,12 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Key;
 import java.util.Collections;
+import java.util.Date;
 
 public class TokenService {
-	public static final int EXPIRATION_TIME = 604800; // 7 days (604800 seconds)
+	public static final int EXPIRATION_TIME = 604_800_000; // 7 days (604800000 milliseconds)
 	public static final String JWT_COOKIE_NAME = "jCMSCookie";
 
 	// TODO: Signing key. Usually the key would be read from your application configuration instead.
+	// Every time server is reloaded, the signing key is changed. A SignatureException will be thrown
+	// if the JWT browser cookie isn't deleted when server is reloaded since the signing keys are
+	// different.
 	public static final Key SIGNING_KEY = MacProvider.generateKey();
 
 	/*
@@ -43,13 +47,17 @@ public class TokenService {
 	public static Cookie createJwtCookie(String jwtSubject) {
 		// TODO: Set secure / domain / http only parameters for the cookie
 		// Sign the JWT using SHA-512 and compact it to a String form
+		Date expirationDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
 		String compactJws = Jwts.builder()
 			.setSubject(jwtSubject)
+			.setExpiration(expirationDate)
 			.signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
 			.compact();
 
 		final Cookie jwtCookie = new Cookie(JWT_COOKIE_NAME, compactJws);
-		jwtCookie.setMaxAge(EXPIRATION_TIME);
+		int durationOfJWTExpiration = (int)((expirationDate.getTime() - System.currentTimeMillis()) / 1000);
+
+		jwtCookie.setMaxAge(durationOfJWTExpiration);
 		return jwtCookie;
 	}
 
@@ -61,10 +69,10 @@ public class TokenService {
 	 */
 	public static Authentication getJWTAuthentication(HttpServletRequest request) {
 		String tokenSubject = getJwtCookieSubject(request.getCookies());
-
 		if (tokenSubject != null) {
 			return new UsernamePasswordAuthenticationToken(tokenSubject, null, Collections.emptyList());
 		}
+
 		return null;
 	}
 

@@ -20,10 +20,8 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 		// Get the token for the authentication request
 		Authentication authentication = TokenService.getJWTAuthentication((HttpServletRequest)request);
 
-		if (authentication != null) {
-			// Manually set the authentication token in the thread-local SecurityContext (managed by SecurityContextHolder)
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-		}
+		// Manually set the authentication token in the thread-local SecurityContext (managed by SecurityContextHolder)
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		filterChain.doFilter(request, response);
 	}
