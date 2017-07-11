@@ -5,34 +5,39 @@
 
 -- Role table
 CREATE TABLE IF NOT EXISTS role (
-    id BIGINT(20) unsigned NOT NULL auto_increment,
-    roleName VARCHAR(50) DEFAULT NULL,
-    PRIMARY KEY(id)
+    id INT unsigned NOT NULL auto_increment,
+    role_name VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Users table
 CREATE TABLE IF NOT EXISTS user (
-    id BIGINT(20) unsigned NOT NULL auto_increment,
-    creationDate TIMESTAMP DEFAULT NOW(),
-    username VARCHAR(25) DEFAULT NULL,
+    id INT unsigned NOT NULL auto_increment,
+    creation_date TIMESTAMP DEFAULT NOW(),
+    username VARCHAR(25) NOT NULL,
     email VARCHAR(80) DEFAULT NULL,
     password VARCHAR(255) DEFAULT NULL,
-    userRole BIGINT(20) unsigned NOT NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT `FK4cdd7f450r33fl1uc76qlwih4` FOREIGN KEY (userRole) REFERENCES role(id)
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- User-
+-- User-Role table
+CREATE TABLE IF NOT EXISTS user_roles (
+	username VARCHAR(25) NOT NULL,
+	role INT unsigned NOT NULL
+	PRIMARY KEY (username),
+	FOREIGN KEY (username) REFERENCES user(username),
+	FOREIGN KEY (role) REFERENCES role(role)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Posts table
 CREATE TABLE IF NOT EXISTS post (
-    id BIGINT(20) unsigned NOT NULL auto_increment,
-    publicationDate TIMESTAMP DEFAULT NOW(),
+    id INT unsigned NOT NULL auto_increment,
+    publication_date TIMESTAMP DEFAULT NOW(),
     title VARCHAR(100) DEFAULT NULL,
     summary VARCHAR(255) DEFAULT NULL,
     content VARCHAR(255) DEFAULT NULL,
-    authorId BIGINT(20) unsigned NOT NULL DEFAULT 0,
+    author_id INT unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    CONSTRAINT `FK12njtf8e0jmyb45lqfpt6ad89` FOREIGN KEY (authorId) REFERENCES user(id)
+    CONSTRAINT `FK12njtf8e0jmyb45lqfpt6ad89` FOREIGN KEY (author_id) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

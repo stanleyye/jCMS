@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 
 /**
  * User DAO.
- * TODO: Keep track of user meta data.
  */
 
 @Data
@@ -39,8 +38,4 @@ public class User {
     @Length(min = 8, message = "Your password must contain at least 8 characters.")
     @NonNull
     private String password;
-
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn
-    private Role userRole;
 }

@@ -3,6 +3,10 @@ package jcms.model;
 import javax.persistence.*;
 import lombok.Data;
 
+/**
+ * Role DAO. Used to specify and restrict the access level of a user.
+ */
+
 @Data
 @Entity
 @Table(name="role")
@@ -12,6 +16,6 @@ public class Role {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "roleName")
+    @Column(name = "role_name")
     private String roleName;
 }
