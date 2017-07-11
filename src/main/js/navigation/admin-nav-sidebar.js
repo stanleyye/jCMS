@@ -1,66 +1,78 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Link } from 'react-router-dom'
 
 class AdminNavSidebar extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="admin-nav-sidebar">
 				<ul className="nav navbar-nav">
 					<li className="active">
-						<a href="#">
+						<Link to="/admin">
+							<span className="glyphicon glyphicon-home"></span>
 							Dashboard
-							<span style="font-size:16px;" className="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span>
-						</a>
+						</Link>
 					</li>
 
 					<li>
-						<a href="#">
-							Profile
-							<span style="font-size:16px;" className="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span>
-						</a>
+						<Link to="/admin/posts">
+							<span className="glyphicon glyphicon-pencil"></span>
+							Post
+						</Link>
 					</li>
 
 					<li>
-						<a href="#">
-							Messages
-							<span style="font-size:16px;" className="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span>
-						</a>
+						<Link to="/admin/pages">
+							<span className="glyphicon glyphicon-file glyphicon-different-padding"></span>
+							Pages
+						</Link>
+					</li>
+
+					<li>
+						<Link to="/admin/users">
+							<span className="glyphicon glyphicon-user"></span>
+							Users
+						</Link>
+					</li>
+
+					<li>
+						<Link to="/admin/comments">
+							<span className="glyphicon glyphicon-comment glyphicon-different-padding"></span>
+							Comments
+						</Link>
 					</li>
 
 					<li className="dropdown">
-						<a href="#" className="dropdown-toggle" data-toggle="dropdown">
+						<Link to="/admin/settings" className="dropdown-toggle" data-toggle="dropdown">
+							<span className="glyphicon glyphicon-cog glyphicon-different-padding"></span>
 							Settings
 							<span className="caret"></span>
-							<span style="font-size:16px;" className="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span>
-						</a>
+						</Link>
 
 						<ul className="dropdown-menu forAnimate" role="menu">
 							<li>
-								<a href="#">Action</a>
+								<Link to="#">Action</Link>
 							</li>
 
-							<li><a href="#">Another action</a></li>
+							<li>
+								<Link to="#">Another action</Link>
+							</li>
 
-							<li><a href="#">Something else here</a></li>
+							<li>
+								<Link to="#">Something else here</Link>
+							</li>
+
 							<li className="divider"></li>
-							<li><a href="#">Separated link</a></li>
+
+							<li>
+								<Link to="#">Separated link</Link>
+							</li>
+
 							<li className="divider"></li>
-							<li><a href="#">One more separated link</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Home<span style="font-size:16px;" className="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-					<li ><a href="#">Profile<span style="font-size:16px;" className="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-					<li ><a href="#">Messages<span style="font-size:16px;" className="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
-					<li className="dropdown">
-						<a href="#" className="dropdown-toggle" data-toggle="dropdown">Settings <span className="caret"></span><span style="font-size:16px;" className="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
-						<ul className="dropdown-menu forAnimate" role="menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li className="divider"></li>
-							<li><a href="#">Separated link</a></li>
-							<li className="divider"></li>
-							<li><a href="#">One more separated link</a></li>
+
+							<li>
+								<Link to="#">One more separated link</Link>
+							</li>
 						</ul>
 					</li>
 				</ul>

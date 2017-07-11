@@ -1,11 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import AdminNavHeader from '../navigation/admin-nav-header'
+import AdminNavSidebar from '../navigation/admin-nav-sidebar'
+
 class AdminPage extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>Admin Page</h1>
+				<AdminNavHeader />
+				<AdminNavSidebar />
+				<div>
+					<h1>Admin Page</h1>
+				</div>
 			</div>
 		);
 	}
