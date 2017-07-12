@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.Date;
+
 /**
  * User DAO.
  */
@@ -21,9 +23,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
-    @NonNull
-    private String name;
+	@Column(name ="creation_date", insertable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
 
     @Column(name = "username")
     @NonNull

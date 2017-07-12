@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MainController {
-    @RequestMapping(value = {"/", "/admin", "login", "/register"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/admin/**", "login", "/register"}, method = RequestMethod.GET)
     public String index() {
         return "index";
     }

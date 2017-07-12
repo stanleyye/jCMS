@@ -17,16 +17,18 @@ CREATE TABLE IF NOT EXISTS user (
     username VARCHAR(25) NOT NULL,
     email VARCHAR(80) DEFAULT NULL,
     password VARCHAR(255) DEFAULT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (email),
+    UNIQUE (username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- User-Role table
 CREATE TABLE IF NOT EXISTS user_roles (
-	username VARCHAR(25) NOT NULL,
-	role INT unsigned NOT NULL
-	PRIMARY KEY (username),
-	FOREIGN KEY (username) REFERENCES user(username),
-	FOREIGN KEY (role) REFERENCES role(role)
+	user_id INT unsigned NOT NULL,
+	role_id INT unsigned NOT NULL,
+	PRIMARY KEY (user_id),
+	FOREIGN KEY (user_id) REFERENCES user(id),
+	FOREIGN KEY (role_id) REFERENCES role(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Posts table
