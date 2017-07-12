@@ -11,13 +11,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	Datasource dataSource;
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/resources/**");
+	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable() // CRSF protection needs to be disabled to handle the JWT cookies
 			.authorizeRequests()
 				.antMatchers("/login").permitAll()
-				.antMatchers("/admin/**").authenticated()
+				.antMatchers("/register").access("hasRole(['admin', 'owner'])")
+				.antMatchers("/admin/**").access("hasAnyRole(['author', 'admin', 'owner'])")//.authenticated()
 				.and()
 			.formLogin()
 				.loginPage("/login")
@@ -39,16 +48,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**");
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// auth.inMemoryAuthentication()
+		// 	.withUser("admin")
+		// 	.password("password")
+		// 	.roles("ADMIN");
+
+		auth
+			.jdbcAuthentication().dataSource(dataSource).
+			.usersByUsernameQuery(getUserQuery())
+			.authoritiesByUsernameQuery(getAuthoriesQuery());
 	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// TODO: Use JDBC to authenticate user
-		auth.inMemoryAuthentication()
-			.withUser("admin")
-			.password("password")
-			.roles("ADMIN");
+	private String getAuthoriesQuery() {
+		return "";
+	}
+
+	/**
+	 * mySQL Query string to get user details.
+	 *
+	 * Note: spaces do matter
+	 */
+	private String getUserQuery() {
+		return
+			"SELECT username, password " +
+			"FROM user " +
+			"WHERE username = ?";
 	}
 }

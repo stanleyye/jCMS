@@ -1,7 +1,5 @@
 -- Set role levels
-INSERT INTO role VALUES (NULL, 'guest');
 INSERT INTO role VALUES (NULL, 'author');
-INSERT INTO role VALUES (NULL, 'moderator');
 INSERT INTO role VALUES (NULL, 'admin');
 INSERT INTO role VALUES (NULL, 'owner');
 

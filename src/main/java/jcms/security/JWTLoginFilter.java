@@ -96,5 +96,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		FilterChain chain,
 		Authentication authResult) throws IOException, ServletException {
 		TokenService.addJWTAuthentication(response, authResult.getName());
+		response.sendRedirect("/admin");
 	}
 }
