@@ -2,46 +2,46 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
 
-const AdminNavSidebar = () => (
+const AdminNavSidebar = ({ match }) => (
 	<div className="admin-nav-sidebar">
 		<ul className="nav navbar-nav">
 			<li className="active">
-				<Link to="/">
+				<Link to="{`${match.url}/`}">
 					<span className="glyphicon glyphicon-home"></span>
 					Dashboard
 				</Link>
 			</li>
 
 			<li>
-				<Link to="posts">
+				<Link to="{`${match.url}/posts`}">
 					<span className="glyphicon glyphicon-pencil"></span>
 					Posts
 				</Link>
 			</li>
 
 			<li>
-				<Link to="pages">
+				<Link to="{`${match.url}/pages`}">
 					<span className="glyphicon glyphicon-file glyphicon-different-padding"></span>
 					Pages
 				</Link>
 			</li>
 
 			<li>
-				<Link to="users">
+				<Link to="{`${match.url}/users`}">
 					<span className="glyphicon glyphicon-user"></span>
 					Users
 				</Link>
 			</li>
 
 			<li>
-				<Link to="comments">
+				<Link to="{`${match.url}/comments`}>
 					<span className="glyphicon glyphicon-comment glyphicon-different-padding"></span>
 					Comments
 				</Link>
 			</li>
 
 			<li className="dropdown">
-				<Link to="settings" className="dropdown-toggle" data-toggle="dropdown">
+				<Link to="{`${match.url}/settings`}" className="dropdown-toggle" data-toggle="dropdown">
 					<span className="glyphicon glyphicon-cog glyphicon-different-padding"></span>
 					Settings
 					<span className="caret"></span>
