@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/posts")
+@RequestMapping("/api/posts")
 public class PostController {
 	public static final String CREATE_PATH = "/create";
 	public static final String GET_PATH = "/";
@@ -28,9 +28,20 @@ public class PostController {
      */
     @RequestMapping(value = GET_PATH, method = RequestMethod.GET)
 	public ResponseEntity<?> getPosts() {
+		// TODO: return a list of Posts without certain details such as the content
     	List<Post> listOfAllPosts = postRepository.findAll();
     	return ResponseEntity.status(HttpStatus.FOUND).body(listOfAllPosts);
 	}
+
+	/**
+     * GET /endpoint/{id} for the get posts path
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getPost(@RequestParam String id) {
+
+	}
+
+
 
     /**
      * POST endpoint for the create posts path
