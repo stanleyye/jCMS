@@ -11,8 +11,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	Datasource dataSource;
+//	@Autowired
+//	Datasource dataSource;
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -25,20 +25,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable() // CRSF protection needs to be disabled to handle the JWT cookies
 			.authorizeRequests()
 				.antMatchers("/login").permitAll()
-				.antMatchers("/register").access("hasRole(['admin', 'owner'])")
-				.antMatchers("/admin/**").access("hasAnyRole(['author', 'admin', 'owner'])")//.authenticated()
+				//.antMatchers("/register").access("hasRole(['admin', 'owner'])")
+				.antMatchers("/admin/**").authenticated()//.access("hasAnyRole(['author', 'admin', 'owner'])")//.authenticated()
 				.and()
 			.formLogin()
 				.loginPage("/login")
 				//.defaultSuccessUrl("/admin")
-				//.failureUrl("/error")
 				.and()
 			.logout()
 				.logoutSuccessUrl("/")
 				.and()
-			//.exceptionHandling()
-			//	.accessDeniedPage("/access-denied")
-			//	.and()
 			// Filter /login endpoint requests
 			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 				UsernamePasswordAuthenticationFilter.class)
@@ -49,15 +45,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// auth.inMemoryAuthentication()
-		// 	.withUser("admin")
-		// 	.password("password")
-		// 	.roles("ADMIN");
+		auth.inMemoryAuthentication()
+			.withUser("admin")
+			.password("password")
+			.roles("ADMIN");
 
-		auth
-			.jdbcAuthentication().dataSource(dataSource).
-			.usersByUsernameQuery(getUserQuery())
-			.authoritiesByUsernameQuery(getAuthoriesQuery());
+		// auth
+		// 	.jdbcAuthentication().dataSource(dataSource).
+		// 	.usersByUsernameQuery(getUserQuery())
+		// 	.authoritiesByUsernameQuery(getAuthoriesQuery());
 	}
 
 	private String getAuthoriesQuery() {

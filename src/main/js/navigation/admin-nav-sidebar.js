@@ -34,7 +34,7 @@ const AdminNavSidebar = ({ match }) => (
 			</li>
 
 			<li>
-				<Link to="{`${match.url}/comments`}>
+				<Link to="{`${match.url}/comments`}">
 					<span className="glyphicon glyphicon-comment glyphicon-different-padding"></span>
 					Comments
 				</Link>

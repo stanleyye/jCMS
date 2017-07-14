@@ -14,7 +14,6 @@ import AdminUsersPage from './admin/admin-users-page'
 
 class AdminPage extends React.Component {
 	render() {
-		console.log(this);
 		return (
 			<div>
 				<AdminNavHeader />
@@ -22,7 +21,7 @@ class AdminPage extends React.Component {
 
 				<div className="admin-route-wrapper">
 					<Switch>
-						<Route path={`${this.props.match.url}`} component={AdminDashboardPage}/>
+						<Route exact path={`${this.props.match.url}`} component={AdminDashboardPage}/>
 						<Route path={`${this.props.match.url}/posts`} component={AdminPostsPage}/>
 						<Route path={`${this.props.match.url}/pages`} component={AdminPagesPage}/>
 						<Route path={`${this.props.match.url}/users`} component={AdminUsersPage}/>

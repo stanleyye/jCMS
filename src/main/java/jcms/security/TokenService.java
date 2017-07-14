@@ -62,6 +62,29 @@ public class TokenService {
 	}
 
 	/**
+	 * Delete the JWT cookie.
+	 *
+	 * @param request The HTTP request
+	 * @param response The HTTP response
+	 */
+	public static void deleteJwtCookie(HttpServletRequest request, HttpServletResponse response) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return;
+		}
+
+		for (Cookie cookie: cookies) {
+			if (cookie.getName().equals(JWT_COOKIE_NAME)) {
+				cookie.setValue("");
+				cookie.setPath("/");
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+			}
+		}
+
+	}
+
+	/**
 	 * Returns a new token containing the token subject from the JWT cookie
 	 *
 	 * @param request The HTTP request

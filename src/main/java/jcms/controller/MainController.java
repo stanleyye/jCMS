@@ -10,10 +10,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MainController {
-	// TODO: adminRegex needs to be updated when sub-sub routes are added
-	private String adminRegex = "/admin(\/(comments|dashboard|posts|pages|settings|users)){0,1}"
-
-    @RequestMapping(value = {"/", adminRegex, "/login"}, method = RequestMethod.GET)
+	// TODO: Condense down the URL mappings
+    @RequestMapping(
+    	value = {
+			"/",
+			"/admin",
+			"/admin/comments",
+			"/admin/dashboard",
+			"/admin/posts",
+			"/admin/pages",
+			"/admin/settings",
+			"/admin/users",
+			"/login"
+		},
+		method = RequestMethod.GET)
     public String index() {
         return "index";
     }
