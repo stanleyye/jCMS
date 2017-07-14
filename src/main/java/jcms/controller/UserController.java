@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-public class LoginController {
+public class UserController {
     private final static String REGISTER_PATH = "/register";
 
     @Autowired
@@ -42,31 +42,5 @@ public class LoginController {
         userService.saveUser(newUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-    }
-
-    /**
-     * Returns the base url of the request url string
-     *
-     * @param request The HTTP request
-     * @return the base URL string
-     */
-    private String getBaseUrl(HttpServletRequest request) {
-        String baseUrl = request
-                .getRequestURL()
-                .substring(0, request.getRequestURL().length() - request.getRequestURI().length())
-                + request.getContextPath();
-        return baseUrl;
-    }
-
-    /**
-     * Set the HTTP header location field to the base url
-     *
-     * @param httpHeader The HTTP header to edit
-     * @param request The HTTP Request to extract base url from
-     * @throws URISyntaxException
-     */
-    private void setLocationToBaseUrlInHttpHeader(HttpHeaders httpHeader, HttpServletRequest request) throws URISyntaxException {
-        URI location = new URI(getBaseUrl(request));
-        httpHeader.setLocation(location);
     }
 }

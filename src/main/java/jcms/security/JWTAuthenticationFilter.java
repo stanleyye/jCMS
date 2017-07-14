@@ -28,6 +28,8 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 		} catch (SignatureException e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getStackTrace());
+
+			// Delete the JWT cookie because the JWT's signature is invalid
 			TokenService.deleteJwtCookie((HttpServletRequest)request, (HttpServletResponse)response);
 			((HttpServletResponse) response).sendRedirect("/login");
 		}
