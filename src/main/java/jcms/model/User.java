@@ -1,6 +1,9 @@
 package jcms.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -18,19 +21,23 @@ import java.util.Date;
 @Entity
 @Table(name="user")
 public class User {
+	@JsonProperty
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonIgnore
 	@Column(name ="creation_date", insertable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 
+    @JsonProperty
     @Column(name = "username")
     @NonNull
     private String username;
 
+    @JsonProperty
     @Column(name = "email")
     @Email(message = "Email is invalid.")
     @NonNull
@@ -40,4 +47,14 @@ public class User {
     @Length(min = 8, message = "Your password must contain at least 8 characters.")
     @NonNull
     private String password;
+
+    @JsonIgnore
+	public String getPassword() {
+    	return this.password;
+	}
+
+    @JsonProperty
+    public void setPassword(String password) {
+    	this.password = password;
+	}
 }

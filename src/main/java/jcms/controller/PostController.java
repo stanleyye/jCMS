@@ -25,7 +25,6 @@ public class PostController {
      */
     @RequestMapping(value = GET_PATH, method = RequestMethod.GET)
 	public ResponseEntity<?> getPosts() {
-		// TODO: return a list of Posts without certain details such as the content
     	List<Post> listOfAllPosts = postRepository.findAll();
     	return ResponseEntity.status(HttpStatus.FOUND).body(listOfAllPosts);
 	}
@@ -34,8 +33,10 @@ public class PostController {
      * GET /endpoint/{id} for the get posts path
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getPost(@RequestParam String id) {
-		return null;
+	public ResponseEntity<?> getPost(@RequestParam Integer id) {
+    	// TODO: Test out whether the @JsonIgnore properties are working as intended.
+    	Post post = postRepository.findById(id);
+		return ResponseEntity.status(HttpStatus.FOUND).body(post);
 	}
 
 

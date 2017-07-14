@@ -81,7 +81,6 @@ public class TokenService {
 				response.addCookie(cookie);
 			}
 		}
-
 	}
 
 	/**

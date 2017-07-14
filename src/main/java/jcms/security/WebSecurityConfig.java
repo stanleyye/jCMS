@@ -25,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable() // CRSF protection needs to be disabled to handle the JWT cookies
 			.authorizeRequests()
 				.antMatchers("/login").permitAll()
+				.antMatchers("/api/**").authenticated()
 				//.antMatchers("/register").access("hasRole(['admin', 'owner'])")
 				.antMatchers("/admin/**").authenticated()//.access("hasAnyRole(['author', 'admin', 'owner'])")//.authenticated()
 				.and()
@@ -63,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	/**
 	 * mySQL Query string to get user details.
 	 *
-	 * Note: spaces do matter
+	 * Note: spaces do matter!!
 	 */
 	private String getUserQuery() {
 		return

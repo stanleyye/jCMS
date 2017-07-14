@@ -4,9 +4,7 @@ import jcms.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import java.math.BigInteger;
-
 @RepositoryRestResource(exported = false)
-public interface RoleRepository extends JpaRepository<Role, BigInteger> {
-    Role findById(BigInteger id);
+public interface RoleRepository extends JpaRepository<Role, Integer> {
+    Role findById(Integer id);
 }
