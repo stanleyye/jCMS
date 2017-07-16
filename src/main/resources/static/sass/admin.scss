@@ -1,0 +1,36 @@
+.admin-nav-sidebar {
+	.nav {
+		width: 190px;
+		padding: 20px 10px;
+		margin-right: 15px;
+		border-right: 1px solid $border-light-grey-color;
+
+		.glyphicon {
+			margin-right: 15px;
+			border: 1px solid $admin-navbar-glyphicon-background-color;
+	    background-color: $admin-navbar-glyphicon-background-color;
+	    color: #fff;
+	    padding: 4px 4px 3px 2px;
+		}
+
+		.glyphicon-different-padding {
+			padding-left: 4px;
+			padding-right: 2px;
+		}
+	}
+
+	.navbar-nav > li {
+		float: none;
+	}
+}
+
+.admin-list-of-users-table {
+	td, th {
+		border: 1px solid black;
+		padding: 10px;
+	}
+
+	td {
+		white-space: nowrap;
+	}
+}

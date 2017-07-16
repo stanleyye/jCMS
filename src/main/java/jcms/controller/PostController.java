@@ -39,7 +39,7 @@ public class PostController {
 	@RequestMapping(value = ROOT_PATH, method = RequestMethod.GET)
 	public ResponseEntity<?> getAllPosts() {
 		List<Post> listOfAllPosts = postService.findAll();
-		return ResponseEntity.status(HttpStatus.FOUND).body(listOfAllPosts);
+		return ResponseEntity.status(HttpStatus.OK).body(listOfAllPosts);
 	}
 
 	/**
@@ -49,6 +49,6 @@ public class PostController {
 	public ResponseEntity<?> getPost(@RequestParam Integer id) {
 		// TODO: Test out whether the @JsonIgnore properties are working as intended.
 		Post post = postService.findById(id);
-		return ResponseEntity.status(HttpStatus.FOUND).body(post);
+		return ResponseEntity.status(HttpStatus.OK).body(post);
 	}
 }

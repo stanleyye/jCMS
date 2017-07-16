@@ -2,10 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
 
+// TODO: Add an "active" class to the <li> when the url matches the link on the sidebar
+
 const AdminNavSidebar = () => (
 	<div className="admin-nav-sidebar">
 		<ul className="nav navbar-nav">
-			<li className="active">
+			<li>
 				<Link to="/admin">
 					<span className="glyphicon glyphicon-home"></span>
 					Dashboard

@@ -50,9 +50,10 @@ public class UserController {
     /**
      * Gets the list of users.
      */
-    @RequestMapping(value = ROOT_PATH, method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getAllUsers() {
+    	System.out.println("testing");
     	List<User> listOfUsers = userService.findAll();
-    	return ResponseEntity.status(HttpStatus.FOUND).body(listOfUsers);
+    	return ResponseEntity.status(HttpStatus.OK).body(listOfUsers);
     }
 }

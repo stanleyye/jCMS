@@ -1,11 +1,7 @@
+@import "utils/variables";
+@import "admin";
+@import "pages";
 @import url('https://fonts.googleapis.com/css?family=Roboto:300');
-
-$admin-navbar-glyphicon-background-color: #3a82e0;
-$border-light-grey-color: #e8e8e8;
-$form-error-message-color : #ab1818;
-$form-input-focus-color: #87bae8;
-$submit-button-background-color : #287bbc;
-$text-black-color: #222;
 
 html,
 body {
@@ -21,98 +17,4 @@ body {
 
 a {
 	color: $text-black-color;
-}
-
-.login-register-container {
-	position: absolute;
-	display: inline-block;
-	border: 0.5px solid black;
-	border-radius: 4px;
-	padding: 20px 60px 50px;
-	top: 30%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-30%);
-	-ms-transform: translate(-50%,-30%);
-	transform: translate(-50%,-30%);
-
-	.ReactForm {
-		.FormInput {
-			margin-bottom: 20px;
-
-			input {
-				padding: 10px;
-				width: 300px;
-
-				&:focus {
-					outline-color: $form-input-focus-color;
-				}
-			}
-
-			.FormError {
-				margin-top: 6px;
-				color: $form-error-message-color;
-			}
-		}
-
-		button[type="submit"] {
-			width: 300px;
-			padding: 10px 0;
-			font-size: 19px;
-			background-color: $submit-button-background-color;
-			border: 0;
-			border-radius: 2px;
-			color: #fff;
-			box-shadow: none;
-		}
-	}
-}
-
-.admin-nav-sidebar {
-	.nav {
-		width: 190px;
-		padding: 20px 10px;
-		margin-right: 15px;
-		border-right: 1px solid $border-light-grey-color;
-
-		.glyphicon {
-			margin-right: 15px;
-			border: 1px solid $admin-navbar-glyphicon-background-color;
-	    background-color: $admin-navbar-glyphicon-background-color;
-	    color: #fff;
-	    padding: 4px 4px 3px 2px;
-		}
-
-		.glyphicon-different-padding {
-			padding-left: 4px;
-			padding-right: 2px;
-		}
-	}
-
-	.navbar-nav > li {
-		float: none;
-	}
-}
-
-.error-page {
-	position: absolute;
-	top: 22%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-22%);
-	-ms-transform: translate(-50%,-22%);
-	transform: translate(-50%,-22%);
-
-	.error-page-main-message {
-		margin-bottom: 40px;
-	}
-
-	.error-page-debug-details {
-		.debug-details-title {
-			display: inline-block;
-			font-weight: bold;
-		}
-	}
-
-	.error-page-return {
-		margin-top: 35px;
-	}
 }

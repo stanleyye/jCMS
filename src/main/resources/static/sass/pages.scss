@@ -1,0 +1,68 @@
+.login-register-container {
+	position: absolute;
+	display: inline-block;
+	border: 0.5px solid black;
+	border-radius: 4px;
+	padding: 20px 60px 50px;
+	top: 30%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-30%);
+	-ms-transform: translate(-50%,-30%);
+	transform: translate(-50%,-30%);
+
+	.ReactForm {
+		.FormInput {
+			margin-bottom: 20px;
+
+			input {
+				padding: 10px;
+				width: 300px;
+
+				&:focus {
+					outline-color: $form-input-focus-color;
+				}
+			}
+
+			.FormError {
+				margin-top: 6px;
+				color: $form-error-message-color;
+			}
+		}
+
+		button[type="submit"] {
+			width: 300px;
+			padding: 10px 0;
+			font-size: 19px;
+			background-color: $submit-button-background-color;
+			border: 0;
+			border-radius: 2px;
+			color: #fff;
+			box-shadow: none;
+		}
+	}
+}
+
+.error-page {
+	position: absolute;
+	top: 22%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-22%);
+	-ms-transform: translate(-50%,-22%);
+	transform: translate(-50%,-22%);
+
+	.error-page-main-message {
+		margin-bottom: 40px;
+	}
+
+	.error-page-debug-details {
+		.debug-details-title {
+			display: inline-block;
+			font-weight: bold;
+		}
+	}
+
+	.error-page-return {
+		margin-top: 35px;
+	}
+}
+
