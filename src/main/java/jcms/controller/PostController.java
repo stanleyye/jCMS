@@ -1,8 +1,7 @@
 package jcms.controller;
 
 import jcms.model.Post;
-import jcms.model.User;
-import jcms.repository.postService;
+import jcms.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

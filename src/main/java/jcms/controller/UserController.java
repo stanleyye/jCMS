@@ -2,6 +2,7 @@ package jcms.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import jcms.model.User;
 import jcms.service.UserService;
@@ -41,7 +42,7 @@ public class UserController {
         }
 
         // Save the user
-        userService.saveUser(newUser);
+        userService.save(newUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }

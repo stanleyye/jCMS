@@ -1,8 +1,9 @@
+import axios from 'axios';
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 class AdminUsersPage extends React.Component {
-		constructor(props) {
+	constructor(props) {
 		super(props);
 
 		this.state = {

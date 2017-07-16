@@ -2,46 +2,46 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
 
-const AdminNavSidebar = ({ match }) => (
+const AdminNavSidebar = () => (
 	<div className="admin-nav-sidebar">
 		<ul className="nav navbar-nav">
 			<li className="active">
-				<Link to="{`${match.url}/`}">
+				<Link to="/admin">
 					<span className="glyphicon glyphicon-home"></span>
 					Dashboard
 				</Link>
 			</li>
 
 			<li>
-				<Link to="{`${match.url}/posts`}">
+				<Link to="/admin/posts">
 					<span className="glyphicon glyphicon-pencil"></span>
 					Posts
 				</Link>
 			</li>
 
 			<li>
-				<Link to="{`${match.url}/pages`}">
+				<Link to="/admin/pages">
 					<span className="glyphicon glyphicon-file glyphicon-different-padding"></span>
 					Pages
 				</Link>
 			</li>
 
 			<li>
-				<Link to="{`${match.url}/users`}">
+				<Link to="/admin/users">
 					<span className="glyphicon glyphicon-user"></span>
 					Users
 				</Link>
 			</li>
 
 			<li>
-				<Link to="{`${match.url}/comments`}">
+				<Link to="/admin/comments">
 					<span className="glyphicon glyphicon-comment glyphicon-different-padding"></span>
 					Comments
 				</Link>
 			</li>
 
 			<li className="dropdown">
-				<Link to="{`${match.url}/settings`}" className="dropdown-toggle" data-toggle="dropdown">
+				<Link to="/admin/settings" className="dropdown-toggle" data-toggle="dropdown">
 					<span className="glyphicon glyphicon-cog glyphicon-different-padding"></span>
 					Settings
 					<span className="caret"></span>

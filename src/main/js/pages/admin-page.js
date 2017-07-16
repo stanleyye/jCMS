@@ -14,6 +14,7 @@ import AdminUsersPage from './admin/admin-users-page'
 
 class AdminPage extends React.Component {
 	render() {
+		console.log(this.props);
 		return (
 			<div>
 				<AdminNavHeader />
