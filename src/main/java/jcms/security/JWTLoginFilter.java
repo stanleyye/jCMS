@@ -27,10 +27,10 @@ import java.util.Collections;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Autowired
-	RoleService roleService;
+	private RoleService roleService;
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	private SessionAuthenticationStrategy sessionStrategy = new NullAuthenticatedSessionStrategy();
 	private boolean continueChainBeforeSuccessfulAuthentication = false;
@@ -108,16 +108,38 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		Authentication authResult) throws IOException, ServletException {
 		// TODO: redirect to /admin
 		String loginUsername = authResult.getName();
-		User user = userService.findByUsername(loginUsername);
 
-		System.out.println(user.getUsername());
+		if (userService != null) {
+			System.out.println("user service is not null");
+		} else {
+			System.out.println("user service is null");
+		}
 
-		// Create a new payload consisting of the user's username and their role level
-		JWTPayload jwtPayload = new JWTPayload(
-			loginUsername,
-			roleService.getOne(user.getId()).getId()
-		);
+		if (roleService != null) {
+			System.out.println("role service is not null");
+		} else {
+			System.out.println("role service is null");
+		}
 
-		TokenService.addJWTAuthentication(response, jwtPayload);
+		// TODO: remove this try block. Used for testing an issue.
+		try {
+			User user = userService.findByUsername(loginUsername);
+
+			if (user != null) {
+				System.out.println(user.getUsername());
+				System.out.println(user.getEmail());
+				System.out.println(user.getId());
+
+				// Create a new payload consisting of the user's username and their role level
+				JWTPayload jwtPayload = new JWTPayload(
+					loginUsername,
+					roleService.getOne(user.getId()).getId()
+				);
+
+				TokenService.addJWTAuthentication(response, jwtPayload);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
