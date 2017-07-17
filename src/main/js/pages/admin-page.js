@@ -20,7 +20,7 @@ class AdminPage extends React.Component {
 				<AdminNavHeader />
 				<AdminNavSidebar />
 
-				<div className="admin-route-wrapper">
+				<div className="admin-route-content-wrapper">
 					<Switch>
 						<Route exact path={`${this.props.match.url}`} component={AdminDashboardPage}/>
 						<Route path={`${this.props.match.url}/posts`} component={AdminPostsPage}/>
@@ -30,8 +30,6 @@ class AdminPage extends React.Component {
 						<Route path={`${this.props.match.url}/settings`} component={AdminSettingsPage}/>
 					</Switch>
 				</div>
-
-				<h1>Bottom nav bar test</h1>
 			</div>
 		)
 	}

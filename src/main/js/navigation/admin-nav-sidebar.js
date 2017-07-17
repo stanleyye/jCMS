@@ -1,81 +1,81 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Link } from 'react-router-dom'
+import { Nav, NavItem, Navbar, NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
-// TODO: Add an "active" class to the <li> when the url matches the link on the sidebar
+// TODO: Add an "active" class to the <li> when the url matches the LinkContainer on the sidebar
 
 const AdminNavSidebar = () => (
 	<div className="admin-nav-sidebar">
-		<ul className="nav navbar-nav">
-			<li>
-				<Link to="/admin">
-					<span className="glyphicon glyphicon-home"></span>
-					Dashboard
-				</Link>
-			</li>
+		<Navbar fluid inverse>
+			<Navbar.Collapse>
+				<Nav>
+					<LinkContainer exact to="/admin">
+						<NavItem eventKey={1}>
+							<Glyphicon glyph="home"/>
+							Dashboard
+						</NavItem>
+					</LinkContainer>
 
-			<li>
-				<Link to="/admin/posts">
-					<span className="glyphicon glyphicon-pencil"></span>
-					Posts
-				</Link>
-			</li>
+					<NavDropdown
+						eventKey={2}
+						title={
+							<span>
+								<i className="glyphicon glyphicon-pencil"></i>
+								Posts
+							</span>
+						}
+						id="admin-posts-dropdown"
+					>
+						<LinkContainer to="/admin/posts">
+	          	<MenuItem eventKey={2.1}>All Posts</MenuItem>
+	          </LinkContainer>
 
-			<li>
-				<Link to="/admin/pages">
-					<span className="glyphicon glyphicon-file glyphicon-different-padding"></span>
-					Pages
-				</Link>
-			</li>
+	          <MenuItem eventKey={2.2}>Create a Post</MenuItem>
+	        </NavDropdown>
 
-			<li>
-				<Link to="/admin/users">
-					<span className="glyphicon glyphicon-user"></span>
-					Users
-				</Link>
-			</li>
+					<LinkContainer to="/admin/pages">
+						<NavItem eventKey={3}>
+							<Glyphicon glyph="file"/>
+							Pages
+						</NavItem>
+					</LinkContainer>
 
-			<li>
-				<Link to="/admin/comments">
-					<span className="glyphicon glyphicon-comment glyphicon-different-padding"></span>
-					Comments
-				</Link>
-			</li>
+					<NavDropdown
+						eventKey={4}
+						title={
+							<span>
+								<i className="glyphicon glyphicon-user"></i>
+								Users
+							</span>
+						}
+						id="admin-users-dropdown"
+					>
+						<LinkContainer to="/admin/users">
+	          	<MenuItem eventKey={4.1}>All Users</MenuItem>
+	          </LinkContainer>
 
-			<li className="dropdown">
-				<Link to="/admin/settings" className="dropdown-toggle" data-toggle="dropdown">
-					<span className="glyphicon glyphicon-cog glyphicon-different-padding"></span>
-					Settings
-					<span className="caret"></span>
-				</Link>
+	          <LinkContainer to="/admin/users/create">
+	          	<MenuItem eventKey={4.2}>Create a user</MenuItem>
+	          </LinkContainer>
+	        </NavDropdown>
 
-				<ul className="dropdown-menu forAnimate" role="menu">
-					<li>
-						<Link to="#">Action</Link>
-					</li>
+					<LinkContainer to="/admin/comments">
+						<NavItem eventKey={5}>
+							<Glyphicon glyph="comment"/>
+							Comments
+						</NavItem>
+					</LinkContainer>
 
-					<li>
-						<Link to="#">Another action</Link>
-					</li>
-
-					<li>
-						<Link to="#">Something else here</Link>
-					</li>
-
-					<li className="divider"></li>
-
-					<li>
-						<Link to="#">Separated link</Link>
-					</li>
-
-					<li className="divider"></li>
-
-					<li>
-						<Link to="#">One more separated link</Link>
-					</li>
-				</ul>
-			</li>
-		</ul>
+					<LinkContainer to="/admin/settings">
+						<NavItem eventKey={6}>
+							<Glyphicon glyph="cog"/>
+							Settings
+						</NavItem>
+					</LinkContainer>
+				</Nav>
+			</Navbar.Collapse>
+		</Navbar>
 	</div>
 )
 

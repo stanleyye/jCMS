@@ -1,27 +1,66 @@
 .admin-nav-sidebar {
-	.nav {
-		width: 190px;
-		padding: 20px 10px;
-		margin-right: 15px;
-		border-right: 1px solid $border-light-grey-color;
+	position: fixed;
+	width: $admin-sidebar-width;
+	height: 100%;
+	background-color: $admin-nav-background-color;
+	border-right: 1px solid $border-light-grey-color;
 
+	.nav {
 		.glyphicon {
 			margin-right: 15px;
-			border: 1px solid $admin-navbar-glyphicon-background-color;
-	    background-color: $admin-navbar-glyphicon-background-color;
-	    color: #fff;
-	    padding: 4px 4px 3px 2px;
-		}
+	    color: $admin-nav-glyphicon-color;
+	  }
 
-		.glyphicon-different-padding {
-			padding-left: 4px;
-			padding-right: 2px;
+	  .dropdown-menu {
+	  	position: inherit;
+	  	-webkit-box-shadow: none;
+	  	box-shadow: none;
+
+	  	> .active > a {
+	  		&,
+				&:focus,
+				&:hover {
+					background-color: $admin-sidebar-hover-color;
+				}
+	  	}
+	  }
+	}
+
+	.navbar-inverse {
+		border-color: transparent;
+		background-color: transparent;
+
+		.navbar-nav {
+			> li > a {
+				color: #333;
+			}
+
+			> .active > a,
+			> .open > a {
+				&,
+				&:focus,
+				&:hover {
+					background-color: $admin-sidebar-hover-color;
+				}
+
+				.glyphicon {
+					color: #fff;
+				}
+			}
 		}
 	}
 
 	.navbar-nav > li {
 		float: none;
+
+		> .dropdown-menu {
+			margin-bottom: 12px;
+		}
 	}
+}
+
+.admin-route-content-wrapper {
+	margin-left: $admin-sidebar-width + 20px;
 }
 
 .admin-list-of-users-table {

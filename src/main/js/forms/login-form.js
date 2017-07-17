@@ -18,43 +18,45 @@ const handleLogin = (formData) => {
 class LoginForm extends React.Component {
 	render() {
 		return (
-			<Form
-				onSubmit={(values) => {
-					console.log('Success!', values);
-					handleLogin(values);
+			<div className="login-form-wrapper">
+				<Form
+					onSubmit={(values) => {
+						console.log('Success!', values);
+						handleLogin(values);
+					}}
+
+				validate={values => {
+					const { username, password } = values
+					return {
+						username: (!username || username.trim() === '') ? 'A username is required' : null,
+						password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'The password must be at least 8 characters long' : null
+					}
 				}}
+				>
 
-			validate={values => {
-				const { username, password } = values
-				return {
-					username: (!username || username.trim() === '') ? 'A username is required' : null,
-					password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'The password must be at least 8 characters long' : null
-				}
-			}}
-			>
+				{({submitForm}) => {
+					return (
+						<form onSubmit={submitForm}>
 
-			{({submitForm}) => {
-				return (
-					<form onSubmit={submitForm}>
+							<div>
+								<h4 className="input-heading">Username</h4>
+								<Text field='username' placeholder='Username' />
+							</div>
 
-						<div>
-							<h4 className="input-heading">Username</h4>
-							<Text field='username' placeholder='Username' />
-						</div>
+							<div>
+								<h4 className="input-heading">Password</h4>
+								<Text type='password' field='password' placeholder='Password' />
+							</div>
 
-						<div>
-							<h4 className="input-heading">Password</h4>
-							<Text type='password' field='password' placeholder='Password' />
-						</div>
+							<div>
+								<button type='submit'>Login</button>
+							</div>
 
-						<div>
-							<button type='submit'>Login</button>
-						</div>
-
-					</form>
-				)
-			}}
-			</Form>
+						</form>
+					)
+				}}
+				</Form>
+			</div>
 		)
 	}
 }
