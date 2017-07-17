@@ -25,7 +25,7 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
     @JsonIgnore
 	@Column(name ="creation_date", insertable = false)

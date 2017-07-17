@@ -15,7 +15,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @JsonProperty
     @Column(name = "title")

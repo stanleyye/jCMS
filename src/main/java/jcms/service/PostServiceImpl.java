@@ -16,8 +16,8 @@ public class PostServiceImpl implements PostService {
 		return postRepository.findAll();
 	}
 
-	public Post findById(Integer id) {
-		return postRepository.findById(id);
+	public Post getOne(Integer id) {
+		return postRepository.getOne(id);
 	}
 
 	public void save(Post post) {

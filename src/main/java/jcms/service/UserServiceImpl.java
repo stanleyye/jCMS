@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService {
     public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
@@ -28,13 +28,13 @@ public class UserServiceImpl implements UserService {
     	return userRepository.findAll();
 	}
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 
     public void save(User user) {
         user.setPassword(PASSWORD_ENCODER.encode(user.getPassword()));

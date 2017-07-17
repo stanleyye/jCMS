@@ -1,6 +1,11 @@
 package jcms.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jcms.model.User;
+import jcms.service.RoleService;
+import jcms.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +26,12 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
+	@Autowired
+	RoleService roleService;
+
+	@Autowired
+	UserService userService;
+
 	private SessionAuthenticationStrategy sessionStrategy = new NullAuthenticatedSessionStrategy();
 	private boolean continueChainBeforeSuccessfulAuthentication = false;
 
@@ -96,6 +107,17 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		FilterChain chain,
 		Authentication authResult) throws IOException, ServletException {
 		// TODO: redirect to /admin
-		TokenService.addJWTAuthentication(response, authResult.getName());
+		String loginUsername = authResult.getName();
+		User user = userService.findByUsername(loginUsername);
+
+		System.out.println(user.getUsername());
+
+		// Create a new payload consisting of the user's username and their role level
+		JWTPayload jwtPayload = new JWTPayload(
+			loginUsername,
+			roleService.getOne(user.getId()).getId()
+		);
+
+		TokenService.addJWTAuthentication(response, jwtPayload);
 	}
 }

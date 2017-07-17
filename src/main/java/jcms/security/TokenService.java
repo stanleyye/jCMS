@@ -1,5 +1,6 @@
 package jcms.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
@@ -27,10 +28,10 @@ public class TokenService {
 	 * Adds an authentication cookie encoded with a JWT in the response header
 	 *
 	 * @param response The response header
-	 * @param jwtSubject The JWT subject string to be encoded for the JWT
+	 * @param jwtPayload The payload to be encoded for JWT
 	 */
-	public static void addJWTAuthentication(HttpServletResponse response, String jwtSubject) {
-		response.addCookie(createJwtCookie(jwtSubject));
+	public static void addJWTAuthentication(HttpServletResponse response, JWTPayload jwtPayload) {
+		response.addCookie(createJwtCookie(jwtPayload));
 	}
 
 	/**
@@ -41,15 +42,16 @@ public class TokenService {
 	 * everything needed for the request. Cookies are vulnerable to CSRF but that threat can be
 	 * greatly reduced with token patterns or a framework's CSRF protection mechanisms
 	 *
-	 * @param jwtSubject The JSON Web token's subject (to be encoded)
+	 * @param jwtPayload The payload of the JWT
 	 * @return a cookie with an encoded JSON Web token
 	 */
-	public static Cookie createJwtCookie(String jwtSubject) {
+	public static Cookie createJwtCookie(JWTPayload jwtPayload) {
 		// TODO: Set secure / domain / http only parameters for the cookie
 		// Sign the JWT using SHA-512 and compact it to a String form
 		Date expirationDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
 		String compactJws = Jwts.builder()
-			.setSubject(jwtSubject)
+			.setSubject(jwtPayload.getUsername())
+			.claim("roleLevel", jwtPayload.getRoleLevel())
 			.setExpiration(expirationDate)
 			.signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
 			.compact();
@@ -90,9 +92,13 @@ public class TokenService {
 	 * @return an 'Authentication' implementation token for simple representation of username and password
 	 */
 	public static Authentication getJWTAuthentication(HttpServletRequest request) {
-		String tokenSubject = getJwtCookieSubject(request.getCookies());
-		if (tokenSubject != null) {
-			return new UsernamePasswordAuthenticationToken(tokenSubject, null, Collections.emptyList());
+		JWTPayload tokenPayload = getJwtCookiePayload(request.getCookies());
+		if (tokenPayload != null) {
+			return new UsernamePasswordAuthenticationToken(
+				tokenPayload.getUsername(),
+				null,
+				Collections.emptyList()
+			);
 		}
 
 		return null;
@@ -105,16 +111,21 @@ public class TokenService {
 	 * @returns a boolean indicating whether or not there is a cookie that matches the correct
 	 *  JSON Web Token credentials
 	 */
-	public static String getJwtCookieSubject(Cookie[] cookies) {
+	public static JWTPayload getJwtCookiePayload(Cookie[] cookies) {
 		if (cookies == null) return null;
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals(JWT_COOKIE_NAME)) {
-				String jwtSubject = Jwts.parser()
+				Claims jwtBody = Jwts.parser()
 					.setSigningKey(SIGNING_KEY)
 					.parseClaimsJws(cookie.getValue())
-					.getBody()
-					.getSubject();
-				return jwtSubject;
+					.getBody();
+
+				System.out.println(jwtBody.get("roleLevel"));
+				System.out.println((Integer) jwtBody.get("roleLevel"));
+				return new JWTPayload(
+					jwtBody.getSubject(),
+					(Integer) jwtBody.get("roleLevel")
+				);
 			}
 		}
 		return null;

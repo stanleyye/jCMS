@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PostService {
 	List<Post> findAll();
-	Post findById(Integer id);
+	Post getOne(Integer id);
 	void save(Post post);
 }

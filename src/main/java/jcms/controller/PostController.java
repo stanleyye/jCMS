@@ -48,7 +48,7 @@ public class PostController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getPost(@RequestParam Integer id) {
 		// TODO: Test out whether the @JsonIgnore properties are working as intended.
-		Post post = postService.findById(id);
+		Post post = postService.getOne(id);
 		return ResponseEntity.status(HttpStatus.OK).body(post);
 	}
 }
