@@ -16,6 +16,9 @@ public class PostServiceImpl implements PostService {
 		return postRepository.findAll();
 	}
 
+	public List<Post> findTopByPublicationdateAsc(Pageable pageable) {
+		return postRepository.findTopByPublicationdateAsc(pageable);
+
 	public Post getOne(Integer id) {
 		return postRepository.getOne(id);
 	}

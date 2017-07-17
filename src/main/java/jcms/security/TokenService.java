@@ -115,16 +115,16 @@ public class TokenService {
 		if (cookies == null) return null;
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals(JWT_COOKIE_NAME)) {
-				Claims jwtBody = Jwts.parser()
+				Claims jwtPayloadClaims = Jwts.parser()
 					.setSigningKey(SIGNING_KEY)
 					.parseClaimsJws(cookie.getValue())
 					.getBody();
 
-				System.out.println(jwtBody.get("roleLevel"));
-				System.out.println((Integer) jwtBody.get("roleLevel"));
+				System.out.println(jwtPayloadClaims.get("roleLevel"));
+				System.out.println((Integer) jwtPayloadClaims.get("roleLevel"));
 				return new JWTPayload(
-					jwtBody.getSubject(),
-					(Integer) jwtBody.get("roleLevel")
+					jwtPayloadClaims.getSubject(),
+					(Integer) jwtPayloadClaims.get("roleLevel")
 				);
 			}
 		}

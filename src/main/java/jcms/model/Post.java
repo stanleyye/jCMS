@@ -18,6 +18,12 @@ public class Post {
     private Integer id;
 
     @JsonProperty
+	@Column(name ="publication_date", insertable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date publicationDate;
+
+
+    @JsonProperty
     @Column(name = "title")
     private String title;
 

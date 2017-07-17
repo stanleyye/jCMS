@@ -34,19 +34,41 @@ public class PostController {
 	}
 
 	/**
-	 * Get all posts
+	 * Get posts
 	 */
 	@RequestMapping(value = ROOT_PATH, method = RequestMethod.GET)
-	public ResponseEntity<?> getAllPosts() {
-		List<Post> listOfAllPosts = postService.findAll();
-		return ResponseEntity.status(HttpStatus.OK).body(listOfAllPosts);
+	public ResponseEntity<?> getAllPosts(@RequestParam("limit") Optional<Integer> limit,
+																			 @RequestParam("offset") Optional<Integer> offset) {
+		boolean isLimitParamPresent = limit.isPresent();
+		boolean isOffsetParamPresent = offset.isPresent();
+		List<Post> listOfPosts = null;
+
+		// If limit and offset parameters are present, do a db query with both.
+		// If only the limit param is present, do a db query with the limit param.
+		// If only the offset param is present, do a db query with the offset param.
+		// Otherwise, do a query and return all the posts
+		if (isLimitParamPresent && isOffsetParamPresent) {
+			listOfPosts = postService.findTopByPublicationdateAsc(
+				new PageRequest(offset, offset + limit);
+			);
+		} else if (isLimitParamPresent) {
+			listOfPosts = postService.findTopByPublicationdateAsc(
+				new PageRequest(0, limit);
+			);
+		} else if (isOffsetParamPresent) {
+			// TODO: upper limit
+		} else {
+			listOfPosts = postService.findAll();
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(listOfPosts);
 	}
 
 	/**
 	 * Get a specific post
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getPost(@RequestParam Integer id) {
+	public ResponseEntity<?> getPost(@PathVariable("id") Integer id) {
 		// TODO: Test out whether the @JsonIgnore properties are working as intended.
 		Post post = postService.getOne(id);
 		return ResponseEntity.status(HttpStatus.OK).body(post);
