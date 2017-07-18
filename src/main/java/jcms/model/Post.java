@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @RequiredArgsConstructor
@@ -21,7 +22,6 @@ public class Post {
 	@Column(name ="publication_date", insertable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date publicationDate;
-
 
     @JsonProperty
     @Column(name = "title")

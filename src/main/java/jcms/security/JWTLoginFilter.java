@@ -1,11 +1,11 @@
 package jcms.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jcms.config.SpringAppContext;
 import jcms.model.User;
 import jcms.service.RoleService;
 import jcms.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,14 +26,8 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
-	@Autowired
-	private RoleService roleService;
-
-	@Autowired
-	private UserService userService;
-
-	private SessionAuthenticationStrategy sessionStrategy = new NullAuthenticatedSessionStrategy();
 	private boolean continueChainBeforeSuccessfulAuthentication = false;
+	private SessionAuthenticationStrategy sessionStrategy = new NullAuthenticatedSessionStrategy();
 
 	public JWTLoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
@@ -108,38 +102,26 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		Authentication authResult) throws IOException, ServletException {
 		// TODO: redirect to /admin
 		String loginUsername = authResult.getName();
+		// Get the roleService and userService bean
+		ApplicationContext applicationContext = SpringAppContext.getApplicationContext();
+		RoleService roleService = (RoleService)applicationContext.getBean("roleService");
+		UserService userService = (UserService)applicationContext.getBean("userService");
 
-		if (userService != null) {
-			System.out.println("user service is not null");
-		} else {
-			System.out.println("user service is null");
-		}
+		// Find the user by their username
+		User user = userService.findByUsername(loginUsername);
 
-		if (roleService != null) {
-			System.out.println("role service is not null");
-		} else {
-			System.out.println("role service is null");
-		}
+		if (user != null) {
+			System.out.println(user.getUsername());
+			System.out.println(user.getEmail());
+			System.out.println(user.getId());
 
-		// TODO: remove this try block. Used for testing an issue.
-		try {
-			User user = userService.findByUsername(loginUsername);
+			// Create a new payload consisting of the user's username and their role level
+			JWTPayload jwtPayload = new JWTPayload(
+				loginUsername,
+				roleService.getOne(user.getId()).getId()
+			);
 
-			if (user != null) {
-				System.out.println(user.getUsername());
-				System.out.println(user.getEmail());
-				System.out.println(user.getId());
-
-				// Create a new payload consisting of the user's username and their role level
-				JWTPayload jwtPayload = new JWTPayload(
-					loginUsername,
-					roleService.getOne(user.getId()).getId()
-				);
-
-				TokenService.addJWTAuthentication(response, jwtPayload);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			TokenService.addJWTAuthentication(response, jwtPayload);
 		}
 	}
 }

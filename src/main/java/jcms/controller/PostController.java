@@ -3,12 +3,15 @@ package jcms.controller;
 import jcms.model.Post;
 import jcms.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/api/posts")
@@ -37,8 +40,9 @@ public class PostController {
 	 * Get posts
 	 */
 	@RequestMapping(value = ROOT_PATH, method = RequestMethod.GET)
-	public ResponseEntity<?> getAllPosts(@RequestParam("limit") Optional<Integer> limit,
-																			 @RequestParam("offset") Optional<Integer> offset) {
+	public ResponseEntity<?> getAllPosts(
+		@RequestParam("limit") Optional<Integer> limit,
+		@RequestParam("offset") Optional<Integer> offset) {
 		boolean isLimitParamPresent = limit.isPresent();
 		boolean isOffsetParamPresent = offset.isPresent();
 		List<Post> listOfPosts = null;
@@ -48,13 +52,13 @@ public class PostController {
 		// If only the offset param is present, do a db query with the offset param.
 		// Otherwise, do a query and return all the posts
 		if (isLimitParamPresent && isOffsetParamPresent) {
-			listOfPosts = postService.findTopByPublicationdateAsc(
-				new PageRequest(offset, offset + limit);
-			);
+//			listOfPosts = postService.findTopByPublicationdateAsc(
+//				new PageRequest(offset.get(), offset.get() + limit.get())
+//			);
 		} else if (isLimitParamPresent) {
-			listOfPosts = postService.findTopByPublicationdateAsc(
-				new PageRequest(0, limit);
-			);
+//			listOfPosts = postService.findTopByPublicationdateAsc(
+//				new PageRequest(0, limit.get())
+//			);
 		} else if (isOffsetParamPresent) {
 			// TODO: upper limit
 		} else {
