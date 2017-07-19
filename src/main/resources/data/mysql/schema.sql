@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS post (
     publication_date TIMESTAMP DEFAULT NOW(),
     title VARCHAR(100) DEFAULT NULL,
     summary VARCHAR(255) DEFAULT NULL,
-    content VARCHAR(255) DEFAULT NULL,
+    content VARCHAR(60000) DEFAULT NULL,
     author_id INT unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
     FOREIGN KEY (author_id) REFERENCES user(id)

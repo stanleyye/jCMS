@@ -61,8 +61,47 @@ WHERE NOT EXISTS (
 	AND user_role.role_id = admin.admin_role_id
 )
 
--- Test post
---INSERT INTO posts (`title`, `summary`, `content`, `author`)
---SELECT 'Test post 2!', 'sdfasd', 'usefr', 1
---FROM DUAL
---WHERE NOT EXISTS (SELECT * FROM posts);
+/*
+ * Create test posts
+ */
+INSERT INTO post (title, summary, content, author_id)
+VALUES (
+	'Test 1',
+	'Test Summary',
+	'Lorem ipsum dolor sit amet, probo solet eam id, odio sensibus vulputate ' +
+	'at sea. Fabulas oportere posidonium has ei, an autem petentium mea. Cum ' +
+	'posse saperet in, et qui nonumy tacimates dignissim, utroque expetendis ' +
+	'usu ut. In error legimus pro, et vero epicurei assueverit eos. <br>' +
+	'Eirmod dolorem gubergren sed ea.',
+	(
+		SELECT user.id FROM user WHERE user.username = 'admin' LIMIT 1
+	)
+)
+
+INSERT INTO post (title, summary, content, author_id)
+VALUES (
+	'Test 2',
+	'Test Summary 2',
+	'<b>Lorem ipsum</b> dolor sit amet, his eu choro officiis intellegebat, ' +
+	'accusamus salutatus ei has. Cum iudicabit assentior adolescens ad, vel ' +
+	'vitae iudico partiendo id. Fuisset albucius temporibus cu sea, falli ' +
+	'eligendi quaerendum vim an. Tollit fuisset neglegentur sea in, mel ' +
+	'debitis euripidis id. Sed propriae honestatis ex, eos diceret.',
+	(
+		SELECT user.id FROM user WHERE user.username = 'admin' LIMIT 1
+	)
+)
+
+INSERT INTO post (title, summary, content, author_id)
+VALUES (
+	'Test 3',
+	'Test Summary 3',
+	'Lorem ipsum dolor sit amet, at mei copiosae corrumpit prodesset. Per ' +
+	'corrumpit constituam in. Erat oporteat ei his. Id pri tation delectus ' +
+	'antiopam, eos tota concludaturque ad. An vis maiorum intellegebat, mea ' +
+	'quas percipitur assueverit id. <br> Nec utinam qualisque consectetuer ' +
+	'ei, pro ex iudico dolorum, ea pri vide veniam accusamus.',
+	(
+		SELECT user.id FROM user WHERE user.username = 'admin' LIMIT 1
+	)
+)
