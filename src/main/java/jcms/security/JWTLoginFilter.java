@@ -112,7 +112,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		try {
 			// Find the user's ID by their username
 			int userID = userService.findByUsername(loginUsername).getId();
-			int roleLevel = userRoleService.findByForeignKeyUsername(loginUsername).getRole().getId();
+			int roleLevel = userRoleService.findByForeignKeyUserUsername(loginUsername).getRole().getId();
 
 			// Create a new payload consisting of the user's username and their role level
 			JWTPayload jwtPayload = new JWTPayload(

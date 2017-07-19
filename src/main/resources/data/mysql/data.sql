@@ -41,12 +41,25 @@ WHERE NOT EXISTS (
 
 /*
  * Set the admin level for the admin user
- * TODO: only insert if the admin user doesn't have a role. Right now, it is making multiple copies
  */
-REPLACE INTO user_role (user_id, role_id)
-SELECT user.id, role.id
-FROM user, role
-WHERE user.username = 'admin' AND role.role_name = 'admin';
+INSERT INTO user_role (user_id, role_id)
+SELECT * FROM (
+	SELECT user.id as user_id, role.id as role_id
+	FROM user, role
+	WHERE user.username = 'admin' AND role.role_name = 'admin';
+) AS tmp
+WHERE NOT EXISTS (
+	SELECT user_role.user_id, user_role.role_id
+	FROM user_role,
+			 (
+				 SELECT user.id AS admin_user_id, role.id AS admin_role_id
+				 FROM user, role,
+				 WHERE user.username = 'admin' AND role.role_name = 'admin'
+				 LIMIT 1
+			 ) AS admin
+	WHERE user_role.user_id = admin.admin_user_id
+	AND user_role.role_id = admin.admin_role_id
+)
 
 -- Test post
 --INSERT INTO posts (`title`, `summary`, `content`, `author`)

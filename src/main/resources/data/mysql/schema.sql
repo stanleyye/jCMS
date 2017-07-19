@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS user_role (
 	role_id INT unsigned NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (user_id) REFERENCES user(id),
+  UNIQUE (user_id),
 	CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (role_id) REFERENCES role(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -44,4 +45,3 @@ CREATE TABLE IF NOT EXISTS post (
     PRIMARY KEY (id),
     FOREIGN KEY (author_id) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

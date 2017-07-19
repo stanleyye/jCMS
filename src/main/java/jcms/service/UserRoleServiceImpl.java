@@ -10,7 +10,7 @@ public class UserRoleServiceImpl implements UserRoleService{
 	@Autowired
 	private UserRoleRepository userRoleRepository;
 
-	public UserRole findByForeignKeyUsername(String username) {
-		return userRoleRepository.findByForeignKeyUsername(username);
+	public UserRole findByForeignKeyUserUsername(String username) {
+		return userRoleRepository.findByForeignKeyUserUsername(username);
 	}
 }
