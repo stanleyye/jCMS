@@ -7,7 +7,8 @@
 CREATE TABLE IF NOT EXISTS role (
     id INT unsigned NOT NULL auto_increment,
     role_name VARCHAR(50) DEFAULT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (role_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Users table
@@ -23,12 +24,13 @@ CREATE TABLE IF NOT EXISTS user (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- User-Role table
-CREATE TABLE IF NOT EXISTS user_roles (
+CREATE TABLE IF NOT EXISTS user_role (
+	id INT unsigned NOT NULL auto_increment,
 	user_id INT unsigned NOT NULL,
 	role_id INT unsigned NOT NULL,
-	PRIMARY KEY (user_id),
+	PRIMARY KEY (id),
 	FOREIGN KEY (user_id) REFERENCES user(id),
-	FOREIGN KEY (role_id) REFERENCES role(id)
+	CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (role_id) REFERENCES role(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Posts table
@@ -40,6 +42,6 @@ CREATE TABLE IF NOT EXISTS post (
     content VARCHAR(255) DEFAULT NULL,
     author_id INT unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    CONSTRAINT `FK12njtf8e0jmyb45lqfpt6ad89` FOREIGN KEY (author_id) REFERENCES user(id)
+    FOREIGN KEY (author_id) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jcms.config.SpringAppContext;
 import jcms.model.User;
 import jcms.service.RoleService;
+import jcms.service.UserRoleService;
 import jcms.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -102,26 +103,26 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		Authentication authResult) throws IOException, ServletException {
 		// TODO: redirect to /admin
 		String loginUsername = authResult.getName();
-		// Get the roleService and userService bean
+
+		// Get the userRoleService and userService bean
 		ApplicationContext applicationContext = SpringAppContext.getApplicationContext();
-		RoleService roleService = (RoleService)applicationContext.getBean("roleService");
 		UserService userService = (UserService)applicationContext.getBean("userService");
+		UserRoleService userRoleService = (UserRoleService)applicationContext.getBean("userRoleService");
 
-		// Find the user by their username
-		User user = userService.findByUsername(loginUsername);
-
-		if (user != null) {
-			System.out.println(user.getUsername());
-			System.out.println(user.getEmail());
-			System.out.println(user.getId());
+		try {
+			// Find the user's ID by their username
+			int userID = userService.findByUsername(loginUsername).getId();
+			int roleLevel = userRoleService.findByForeignKeyUsername(loginUsername).getRole().getId();
 
 			// Create a new payload consisting of the user's username and their role level
 			JWTPayload jwtPayload = new JWTPayload(
 				loginUsername,
-				roleService.getOne(user.getId()).getId()
+				roleLevel
 			);
 
 			TokenService.addJWTAuthentication(response, jwtPayload);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
