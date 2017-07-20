@@ -20,3 +20,15 @@ mvn clean spring-boot:run
 # For more logging purposes
 mvn clean spring-boot:run -X
 ```
+
+## Development mode
+To test mySQL queries, you can source the file directly:
+```
+mysql> source ~/Documents/jCMS/src/main/resources/data/mysqldata.sql
+```
+
+For hot reloading Spring boot, the spring boot dev tools plugin can be used.
+Run the main method directly without using maven. 
+
+TODO: add a webpack hot reloading server for frontend
+
