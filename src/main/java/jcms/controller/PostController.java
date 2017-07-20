@@ -14,9 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/api/posts")
+@RequestMapping("/api")
 public class PostController {
-	public static final String ROOT_PATH = "/";
+	private static final String PRIVATE_PATH = "/private";
+	private static final String PUBLIC_PATH = "/public";
+	private static final String ROOT_PATH = "/posts";
 
 	@Autowired
 	private PostService postService;
@@ -24,7 +26,7 @@ public class PostController {
 	/**
 	 * Create a new post
 	 */
-	@RequestMapping(value = ROOT_PATH, method = RequestMethod.POST)
+	@RequestMapping(value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.POST)
 	public ResponseEntity<?> createPost(@RequestBody Post post) {
 		try {
 			postService.save(post);
@@ -39,7 +41,7 @@ public class PostController {
 	/**
 	 * Get posts
 	 */
-	@RequestMapping(value = ROOT_PATH, method = RequestMethod.GET)
+	@RequestMapping(value = PUBLIC_PATH + ROOT_PATH, method = RequestMethod.GET)
 	public ResponseEntity<?> getAllPosts(
 		@RequestParam("limit") Optional<Integer> limit,
 		@RequestParam("offset") Optional<Integer> offset) {

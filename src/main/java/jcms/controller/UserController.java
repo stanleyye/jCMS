@@ -17,9 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UserController {
-    private final static String ROOT_PATH = "/";
+	private static final String PRIVATE_PATH = "/private";
+	private static final String ROOT_PATH = "/users";
 
     @Autowired
     private UserService userService;
@@ -27,7 +28,7 @@ public class UserController {
     /**
      * Create a new user
      */
-    @RequestMapping(value = ROOT_PATH, method = RequestMethod.POST)
+    @RequestMapping(value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.POST)
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
     	// TODO: Add checking for role level to see if the specified user is allowed to create a user or not
         boolean isExistingUsername = userService.existsByUsername(newUser.getUsername());
@@ -50,7 +51,7 @@ public class UserController {
     /**
      * Gets the list of users.
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.GET)
     public ResponseEntity<?> getAllUsers() {
     	System.out.println("testing");
     	List<User> listOfUsers = userService.findAll();

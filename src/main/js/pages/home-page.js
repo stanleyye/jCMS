@@ -15,7 +15,7 @@ class HomePage extends React.Component {
 	}
 
 	loadPostsFromServer() {
-		let getPostsUrl = '/api/posts?limit=' + this.props.perPage + '&offset=' +
+		let getPostsUrl = '/api/public/posts?limit=' + this.props.perPage + '&offset=' +
 			this.state.offset;
 		axios.get(getPostsUrl)
 			.then(function(response) {

@@ -12,7 +12,7 @@ class AdminPostsPage extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get('/api/posts').then(res => {
+		axios.get('/api/public/posts').then(res => {
 			console.log(res);
 			const posts = res.data.map(post => post.data);
 			this.setState({ posts });
