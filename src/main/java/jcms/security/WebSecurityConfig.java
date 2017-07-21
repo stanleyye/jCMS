@@ -13,12 +13,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableJpaRepositories
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//	@Autowired
-//	Datasource dataSource;
+
+	@Autowired
+	private MyDaoAuthenticationProvider myDaoAuthenticationProvider;
+
+	@Autowired
+	private MyUserDetailsService myUserDetailsService;
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**");
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(getDaoAuthenticationProvider());
 	}
 
 	@Override
@@ -28,8 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/api/**").authenticated()
-				//.antMatchers("/register").access("hasRole(['admin', 'owner'])")
-				.antMatchers("/admin/**").authenticated()//.access("hasAnyRole(['author', 'admin', 'owner'])")//.authenticated()
+				.antMatchers("/admin/**").authenticated()
 				.and()
 			.formLogin()
 				.loginPage("/login")
@@ -41,37 +44,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			// Filter /login endpoint requests
 			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 				UsernamePasswordAuthenticationFilter.class)
-			// Filter other requests to check JWT
+			// Filter all other requests to check JWT
 			.addFilterBefore(new JWTAuthenticationFilter(),
 				UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-			.withUser("admin")
-			.password("password")
-			.roles("ADMIN");
-
-		// auth
-		// 	.jdbcAuthentication().dataSource(dataSource).
-		// 	.usersByUsernameQuery(getUserQuery())
-		// 	.authoritiesByUsernameQuery(getAuthoriesQuery());
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/resources/**");
 	}
 
-	private String getAuthoriesQuery() {
-		return "";
-	}
-
-	/**
-	 * mySQL Query string to get user details.
-	 *
-	 * Note: spaces do matter!!
-	 */
-	private String getUserQuery() {
-		return
-			"SELECT username, password " +
-			"FROM user " +
-			"WHERE username = ?";
+	private DaoAuthenticationProvider getDaoAuthenticationProvider() {
+		myDaoAuthenticationProvider.setUserDetailsService(userDetailsService);
+		myDaoAuthenticationProvider.setPasswordEncoder(UserServiceImpl.PASSWORD_ENCODER);
+		return myDaoAuthenticationProvider;
 	}
 }
