@@ -2,8 +2,6 @@ package jcms.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jcms.config.SpringAppContext;
-import jcms.model.User;
-import jcms.service.RoleService;
 import jcms.service.UserRoleService;
 import jcms.service.UserService;
 import org.springframework.context.ApplicationContext;

@@ -3,7 +3,7 @@ import { Form, Text } from 'react-form';
 
 const handleLogin = (formData) => {
 	console.log(formData);
-	return axios.post('/register', formData)
+	return axios.post('/api/private/users', formData)
 		.then(function(response) {
 			console.log("response", response);
 		})

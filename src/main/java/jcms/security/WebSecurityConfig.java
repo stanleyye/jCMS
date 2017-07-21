@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable() // CRSF protection needs to be disabled to handle the JWT cookies
 			.authorizeRequests()
 				.antMatchers("/login").permitAll()
-				.antMatchers("/api/**").authenticated()
+				.antMatchers("/api/private/**").authenticated()
 				.antMatchers("/admin/**").authenticated()
 				.and()
 			.formLogin()
