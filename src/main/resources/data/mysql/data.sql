@@ -46,7 +46,7 @@ INSERT INTO user_role (user_id, role_id)
 SELECT * FROM (
 	SELECT user.id as user_id, role.id as role_id
 	FROM user, role
-	WHERE user.username = 'admin' AND role.role_name = 'admin'
+	WHERE user.username = 'admin' AND role.role_name = 'owner'
 ) AS tmp
 WHERE NOT EXISTS (
 	SELECT user_role.user_id, user_role.role_id

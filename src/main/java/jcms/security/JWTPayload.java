@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class JWTPayload {
 	private String username;
-	private Integer roleLevel;
+	private String role;
 }

@@ -10,5 +10,6 @@ public interface UserService {
     List<User> findAll();
     User findByEmail(String email);
     User findByUsername(String username);
-    void save(User user);
+	User removeById(Integer id);
+    User save(User user);
 }

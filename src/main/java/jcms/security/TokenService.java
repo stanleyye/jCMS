@@ -51,7 +51,7 @@ public class TokenService {
 		Date expirationDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
 		String compactJws = Jwts.builder()
 			.setSubject(jwtPayload.getUsername())
-			.claim("roleLevel", jwtPayload.getRoleLevel())
+			.claim("role", jwtPayload.getRole())
 			.setExpiration(expirationDate)
 			.signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
 			.compact();
@@ -120,11 +120,10 @@ public class TokenService {
 					.parseClaimsJws(cookie.getValue())
 					.getBody();
 
-				System.out.println(jwtPayloadClaims.get("roleLevel"));
-				System.out.println((Integer) jwtPayloadClaims.get("roleLevel"));
+				System.out.println(jwtPayloadClaims.get("role"));
 				return new JWTPayload(
 					jwtPayloadClaims.getSubject(),
-					(Integer) jwtPayloadClaims.get("roleLevel")
+					(String) jwtPayloadClaims.get("role")
 				);
 			}
 		}

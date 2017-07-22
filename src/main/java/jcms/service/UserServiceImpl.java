@@ -32,13 +32,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    @Override
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 
-    public void save(User user) {
+	public User removeById(Integer id) {
+    	return userRepository.removeById(id);
+	};
+
+    public User save(User user) {
         user.setPassword(PASSWORD_ENCODER.encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

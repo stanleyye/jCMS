@@ -1,7 +1,11 @@
 package jcms.security;
 
+import jcms.service.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -15,13 +19,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private MyDaoAuthenticationProvider myDaoAuthenticationProvider;
-
-	@Autowired
 	private MyUserDetailsService myUserDetailsService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication()
+			.withUser("admin")
+			.password("password")
+			.roles("owner");
 		auth.authenticationProvider(getDaoAuthenticationProvider());
 	}
 
@@ -54,9 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/resources/**");
 	}
 
-	private DaoAuthenticationProvider getDaoAuthenticationProvider() {
-		myDaoAuthenticationProvider.setUserDetailsService(userDetailsService);
-		myDaoAuthenticationProvider.setPasswordEncoder(UserServiceImpl.PASSWORD_ENCODER);
-		return myDaoAuthenticationProvider;
+	@Bean
+	public DaoAuthenticationProvider getDaoAuthenticationProvider() {
+		DaoAuthenticationProvider provider =  new DaoAuthenticationProvider();
+		provider.setPasswordEncoder(UserServiceImpl.PASSWORD_ENCODER);
+		provider.setUserDetailsService(myUserDetailsService);
+		return provider;
 	}
 }

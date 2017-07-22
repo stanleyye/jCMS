@@ -13,4 +13,8 @@ public class UserRoleServiceImpl implements UserRoleService{
 	public UserRole findByForeignKeyUserUsername(String username) {
 		return userRoleRepository.findByForeignKeyUserUsername(username);
 	}
+
+	public UserRole save(UserRole userRole) {
+		return userRoleRepository.save(userRole);
+	}
 }
