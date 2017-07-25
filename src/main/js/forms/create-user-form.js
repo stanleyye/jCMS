@@ -46,7 +46,7 @@ class RegisterForm extends React.Component {
 
 	render() {
 		return (
-			<div className="register-form-wrapper">
+			<div className="create-user-form-wrapper">
 				<Form
 					defaultValues={{
 						roleId: 'admin'
@@ -76,7 +76,10 @@ class RegisterForm extends React.Component {
 
 								<div>
 									<h4 className="input-heading">Name</h4>
-									<Text field='name' placeholder='Name' />
+									<Text
+										field='name'
+										placeholder='Name'
+									/>
 								</div>
 
 								<div>
@@ -89,17 +92,27 @@ class RegisterForm extends React.Component {
 
 								<div>
 									<h4 className="input-heading">Username</h4>
-									<Text field='username' placeholder='Username' />
+									<Text
+										field='username'
+										placeholder='Username'
+									/>
 								</div>
 
 								<div>
 									<h4 className="input-heading">Email</h4>
-									<Text field='email' placeholder='Email' />
+									<Text
+										field='email'
+										placeholder='Email'
+									/>
 								</div>
 
 								<div>
 									<h4 className="input-heading">Password</h4>
-									<Text type='password' field='password' placeholder='Password' />
+									<Text
+										type='password'
+										field='password'
+										placeholder='Password'
+									/>
 								</div>
 
 								<div>

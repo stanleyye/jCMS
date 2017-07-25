@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import CreateNewUserForm from '../../../forms/register-form'
+import CreateNewUserForm from '../../../forms/create-user-form'
 
 class CreateUsersPage extends React.Component {
 	render() {
