@@ -1,32 +1,68 @@
+import axios from 'axios';
 import React from 'react';
-import { Form, Text } from 'react-form';
+import { Form, Select, Text } from 'react-form';
 
-const handleLogin = (formData) => {
+// Register the user
+const registerUser = (formData) => {
 	console.log(formData);
 	return axios.post('/api/private/users', formData)
 		.then(function(response) {
 			console.log("response", response);
 		})
 		.catch(function(error) {
-			console.log("error", error);
+			console.log(error.response);
 		});
 }
 
 class RegisterForm extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			roles: []
+		}
+	}
+
+	componentDidMount() {
+		// Get the role levels from the API
+		axios.get('/api/private/roles')
+			.then(res => {
+				const roles = res.data.map(role => {
+					return {
+						key: role.id,
+						label: role.roleName,
+						value: role.id,
+					}
+				});
+
+				// Sort the IDs in ascending order because we are setting the default
+				// <Select> value to be the first role
+				roles.sort((a, b) => parseFloat(a.values) - parseFloat(b.values));
+				this.setState({ roles });
+				console.log(this.state.roles);
+		})
+		.catch(err => console.log(err));
+	}
+
 	render() {
 		return (
 			<div className="register-form-wrapper">
 				<Form
+					defaultValues={{
+						roleId: 'admin'
+					}}
+
 					onSubmit={(values) => {
 						console.log('Success!', values);
-						handleLogin(values);
+						registerUser(values);
 					}}
 
 					validate={values => {
 						const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-						const { name, username, email, password } = values
+						const { name, roleId, username, email, password } = values
 						return {
 							name: (!name || name.trim() === '') ? 'Your name is invalid' : null,
+							roleId: !roleId ? 'A role is required' : null,
 							username: (!username || username.trim() === '') ? 'A username is required' : null,
 							email: (!email || email.trim() === '' || !emailRegex.test(email)) ?  'The email address is invalid' : null,
 							password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'Password must be at least 8 characters long' : null
@@ -41,6 +77,14 @@ class RegisterForm extends React.Component {
 								<div>
 									<h4 className="input-heading">Name</h4>
 									<Text field='name' placeholder='Name' />
+								</div>
+
+								<div>
+									<h4 className="input-heading">Role</h4>
+									<Select
+										field="roleId"
+										options={ this.state.roles }
+									/>
 								</div>
 
 								<div>

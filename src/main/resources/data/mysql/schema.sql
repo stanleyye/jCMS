@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS role (
 CREATE TABLE IF NOT EXISTS user (
     id INT unsigned NOT NULL auto_increment,
     creation_date TIMESTAMP DEFAULT NOW(),
+    name VARCHAR(25) NOT NULL,
     username VARCHAR(25) NOT NULL,
     email VARCHAR(80) DEFAULT NULL,
     password VARCHAR(255) DEFAULT NULL,

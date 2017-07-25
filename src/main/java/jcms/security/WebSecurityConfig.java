@@ -23,10 +23,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// hard-coded admin login
 		auth.inMemoryAuthentication()
 			.withUser("admin")
 			.password("password")
 			.roles("owner");
+		// login with other users
 		auth.authenticationProvider(getDaoAuthenticationProvider());
 	}
 

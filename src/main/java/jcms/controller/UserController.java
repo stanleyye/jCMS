@@ -43,8 +43,9 @@ public class UserController {
 										HttpServletRequest request) {
 		JWTPayload jwtPayload = TokenService.getJwtCookiePayload(request.getCookies());
 		final String roleOfCurrentRequestUser = jwtPayload.getRole();
+		System.out.println("role of current user is: " + roleOfCurrentRequestUser);
 
-		if (roleOfCurrentRequestUser != "admin" || roleOfCurrentRequestUser != "owner") {
+		if (roleOfCurrentRequestUser == "author") {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Access has been denied.");
 		}
 
@@ -60,6 +61,7 @@ public class UserController {
         }
 
         User newUser = new User(
+        	newUserCredentials.getName(),
         	newUserCredentials.getUsername(),
 			newUserCredentials.getEmail(),
 			newUserCredentials.getPassword()

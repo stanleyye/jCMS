@@ -32,6 +32,11 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 
+	@JsonProperty
+	@Column(name = "name")
+	@NonNull
+	private String name;
+
     @JsonProperty
     @Column(name = "username")
     @NonNull

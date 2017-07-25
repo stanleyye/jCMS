@@ -43,6 +43,7 @@ class ListOfUsersPage extends React.Component {
 							<tr>
 								{/* TODO: Add a table header for Role eventually */}
 								<th>ID</th>
+								<th>Name</th>
 								<th>Username</th>
 								<th>Email</th>
 								<th>Date created</th>
@@ -52,6 +53,7 @@ class ListOfUsersPage extends React.Component {
 								this.state.users.map((user, index) => (
 									<tr key ={index}>
 										<td>{user.id}</td>
+										<td>{user.name}</td>
 										<td>{user.username}</td>
 										<td>{user.email}</td>
 										<td>{user.creationDate}</td>

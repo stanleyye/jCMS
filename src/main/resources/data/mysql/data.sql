@@ -28,9 +28,10 @@ WHERE NOT EXISTS (
 /*
  * Create an admin user
  */
-INSERT INTO user (creation_date, username, email, password)
+INSERT INTO user (creation_date, name, username, email, password)
 SELECT * FROM (
 	SELECT NOW() as creation_date,
+		   'admin' as name,
 		   'admin' as username,
 		   'admin@admin' as email,
 		   'password' as password
@@ -54,7 +55,7 @@ WHERE NOT EXISTS (
 			 (
 				 SELECT user.id AS admin_user_id, role.id AS admin_role_id
 				 FROM user, role
-				 WHERE user.username = 'admin' AND role.role_name = 'admin'
+				 WHERE user.username = 'admin' AND role.role_name = 'owner'
 				 LIMIT 1
 			 ) AS admin
 	WHERE user_role.user_id = admin.admin_user_id
