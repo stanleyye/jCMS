@@ -31,7 +31,9 @@ const AdminNavSidebar = () => (
 	          	<MenuItem eventKey={2.1}>All Posts</MenuItem>
 	          </LinkContainer>
 
-	          <MenuItem eventKey={2.2}>Create a Post</MenuItem>
+						<LinkContainer to="/admin/posts/create">
+							<MenuItem eventKey={2.2}>Create a Post</MenuItem>
+	          </LinkContainer>
 	        </NavDropdown>
 
 					<LinkContainer to="/admin/pages">

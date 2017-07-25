@@ -2,6 +2,8 @@ import axios from 'axios';
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import CreatePostsPage from './posts/create-posts-page'
+
 class AdminPostsPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -23,6 +25,9 @@ class AdminPostsPage extends React.Component {
 		return (
 			<div>
 				<h1>Posts</h1>
+				<Switch>
+					<Route path={`${this.props.match.url}/create`} component={CreatePostsPage}/>
+				</Switch>
 			</div>
 		);
 	}
