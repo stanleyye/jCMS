@@ -28,7 +28,6 @@ mysql> source ~/Documents/jCMS/src/main/resources/data/mysqldata.sql
 ```
 
 For hot reloading Spring boot, the spring boot dev tools plugin can be used.
-Run the main method directly without using maven. 
+Run the main method directly in the IDE without using maven.
 
-TODO: add a webpack hot reloading server for frontend
-
+For the frontend side, run ```npm start```

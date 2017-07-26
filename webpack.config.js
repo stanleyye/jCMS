@@ -6,9 +6,11 @@ const extractSass = new ExtractTextPlugin({
   filename: "bundle.css"
 });
 
+const devServerPortNum = 9000;
+
 module.exports = {
   entry: [
-    './src/main/js/index.js', 
+    './src/main/js/index.js',
     './src/main/resources/static/sass/main.scss'
   ],
   devtool: 'sourcemaps',
@@ -18,6 +20,17 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: 'source-map',
+  devServer: {
+    port: devServerPortNum,
+    proxy: {
+      '/': {
+        target: 'http://localhost:8080',
+        secure: false,
+      }
+    },
+    publicPath: 'http://localhost:' + devServerPortNum + '/',
+    historyApiFallback: true
+  },
   module: {
     rules: [
       {
@@ -25,11 +38,11 @@ module.exports = {
         exclude: /node-modules/,
         use: extractSass.extract({
           use: [{
-            loader: "css-loader"
+            loader: 'css-loader'
           }, {
-            loader: "sass-loader"
+            loader: 'sass-loader'
           }],
-          fallback: "style-loader"
+          fallback: 'style-loader'
         }),
       },
       {
