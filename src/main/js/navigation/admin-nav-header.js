@@ -1,10 +1,27 @@
 import jwtDecode from 'jwt-decode'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Nav, NavItem, Navbar, NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
-// TODO: get the token value that is stored inside the 'jCMSCookie' cookie
-const getCookie = (cookieName) => {
+// Gets the value from a specified cookie
+const readCookie = (cookieName) => {
+	let index,
+			arrayOfCookies = document.cookie.split(';'),
+			cookieNameWithEqualOperator = cookieName + "=";
 
+	for (index = 0; index < arrayOfCookies.length; index++) {
+			let cookie = arrayOfCookies[index];
+			while (cookie.charAt(0) == ' ') {
+				cookie = cookie.substring(1,cookie.length)
+			};
+			if (cookie.indexOf(cookieNameWithEqualOperator) == 0) {
+				return cookie.substring(
+					cookieNameWithEqualOperator.length, cookie.length
+				);
+			}
+	}
+	return null;
 }
 
 class AdminNavHeader extends React.Component {
@@ -17,12 +34,39 @@ class AdminNavHeader extends React.Component {
 	}
 
 	componentDidMount() {
-		// console.log(jwtDecode(getCookie('jCMSCookie')));
+		// Get the value (JWT) from the jCMSCookie
+		let jCMSCookieValue = readCookie('jCMSCookie');
+		let decodedJWTPayload = jwtDecode(jCMSCookieValue);
+		console.log(decodedJWTPayload);
+		this.setState({
+			current_user: decodedJWTPayload
+		})
 	}
 
 	render() {
 		return (
 			<div>
+				{
+					/*
+					<Navbar fluid inverse>
+					<Navbar.Collapse>
+						<Nav>
+							<NavDropdown
+								eventKey={2}
+								title={
+									<span>
+										<i className="glyphicon glyphicon-pencil"></i>
+										Posts
+									</span>
+								}
+								id="admin-posts-dropdown"
+							>
+						</Nav>
+					</Navbar.Collapse>
+				</Navbar>
+				*/
+				}
+
 				<nav className="navbar navbar-default">
 					<div className="container-fluid">
 						<div className="navbar-header">
@@ -36,10 +80,11 @@ class AdminNavHeader extends React.Component {
 						</div>
 
 						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							Hello { this.state.current_user.name } !
 							<ul className="nav navbar-nav navbar-right">
 								<li className="dropdown">
 									<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-										Dropdown <span className="caret"></span>
+										<span className="caret"></span>
 									</a>
 									<ul className="dropdown-menu">
 										<li><a href="#">Profile</a></li>

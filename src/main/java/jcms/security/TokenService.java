@@ -66,6 +66,12 @@ public class TokenService {
 	/**
 	 * Delete the JWT cookie.
 	 *
+	 * This DOES NOT invalidate the JWT. Rather, it deletes the cookie containing
+	 * the JWT on the client side. It does nothing for server-side security. To
+	 * re-use the same JWT, the attacker has to steal it before it is deleted.
+	 * A few other options include a token blacklist and shortening expiration
+	 * times
+	 *
 	 * @param request The HTTP request
 	 * @param response The HTTP response
 	 */

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import CreatePostsPage from './posts/create-posts-page'
 
