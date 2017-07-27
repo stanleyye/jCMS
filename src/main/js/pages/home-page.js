@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import ReactPaginate from 'react-paginate';
 
 import PostList from '../widgets/post-list'
 
@@ -36,6 +37,8 @@ class HomePage extends React.Component {
 			<div>
 				<h1>Home Page</h1>
 				<PostList data={this.state.data}/>
+				<ReactPaginate previousLabel={"previous"}
+                       nextLabel={"next"} />
 			</div>
 		);
 	}

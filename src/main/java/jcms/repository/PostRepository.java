@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface PostRepository extends JpaRepository<Post, Integer> {
-	//List<Post> findTopByPublicationdateAsc(Pageable pageable);
+public interface PostRepository extends PagingAndSortingRepository<Post, Integer> {
+	List<Post> findTopByPublicationdateAsc(Pageable pageable);
 }

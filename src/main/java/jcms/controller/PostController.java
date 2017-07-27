@@ -43,26 +43,28 @@ public class PostController {
 	 */
 	@RequestMapping(value = PUBLIC_PATH + ROOT_PATH, method = RequestMethod.GET)
 	public ResponseEntity<?> getAllPosts(
-		@RequestParam("limit") Optional<Integer> limit,
-		@RequestParam("offset") Optional<Integer> offset) {
-		boolean isLimitParamPresent = limit.isPresent();
-		boolean isOffsetParamPresent = offset.isPresent();
+		@RequestParam("page") Optional<Integer> page,
+		@RequestParam("size") Optional<Integer> size) {
+		boolean isPageParamPresent = page.isPresent();
+		boolean isSizeParamPresent = size.isPresent();
 		List<Post> listOfPosts = null;
 
-		// If limit and offset parameters are present, do a db query with both.
-		// If only the limit param is present, do a db query with the limit param.
-		// If only the offset param is present, do a db query with the offset param.
+		// If page and size parameters are present, do a db query with both.
+		// If only the size param is present, do a db query with the offset param.
+				// If only the page param is present, return a Bad Request Error.
 		// Otherwise, do a query and return all the posts
-		if (isLimitParamPresent && isOffsetParamPresent) {
-//			listOfPosts = postService.findTopByPublicationdateAsc(
-//				new PageRequest(offset.get(), offset.get() + limit.get())
-//			);
-		} else if (isLimitParamPresent) {
-//			listOfPosts = postService.findTopByPublicationdateAsc(
-//				new PageRequest(0, limit.get())
-//			);
-		} else if (isOffsetParamPresent) {
-			// TODO: upper limit
+		if (isPageParamPresent && isSizeParamPresent) {
+			listOfPosts = postService.findTopByPublicationdateAsc(
+				new PageRequest(page.get(), size.get());
+			);
+		} else if (isSizeParamPresent) {
+			listOfPosts = postService.findTopByPublicationdateLimitBySize(
+				size.get()
+			);
+		} else if (isPageParamPresent) {
+			return ResponseEntity
+								.status(HttpStatus.BAD_REQUEST)
+								.body("Missing size parameter");
 		} else {
 			listOfPosts = postService.findAll();
 		}
