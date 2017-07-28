@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 @Controller
 @RequestMapping("/api")
 public class UserController {
@@ -96,11 +95,9 @@ public class UserController {
     @RequestMapping(value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.GET)
     public ResponseEntity<?> getAllUsers() {
     	List<User> listOfUsers = userService.findAll();
-
     	if (listOfUsers != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(listOfUsers);
 		}
-
     	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not get list of users.");
     }
 }

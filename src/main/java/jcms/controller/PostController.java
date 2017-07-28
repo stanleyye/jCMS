@@ -31,6 +31,7 @@ public class PostController {
 		value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.POST
 	)
 	public ResponseEntity<?> createPost(@RequestBody Post post) {
+		// TODO: check permissions using JWT
 		try {
 			postService.save(post);
 		} catch (Exception ex) {
@@ -40,6 +41,16 @@ public class PostController {
 								 .body("Error saving the post");
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(post);
+	}
+
+	/**
+	 * Delete a post
+	 */
+	@RequestMapping(
+		value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.DELETE
+	)
+	public ResponseEntity<?> deletePost(@RequestParam("id") Integer id) {
+		// TODO: check permissions using JWT
 	}
 
 	/**
@@ -96,7 +107,6 @@ public class PostController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getPost(@PathVariable("id") Integer id) {
-		// TODO: Test out whether the @JsonIgnore properties are working as intended.
 		Post post = postService.findOne(id);
 		return ResponseEntity.status(HttpStatus.OK).body(post);
 	}
