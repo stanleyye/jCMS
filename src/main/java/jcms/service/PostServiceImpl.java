@@ -3,6 +3,7 @@ package jcms.service;
 import jcms.model.Post;
 import jcms.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,12 @@ public class PostServiceImpl implements PostService {
 		return postRepository.findAll();
 	}
 
-	public List<Post> findTopByPublicationdateAsc(Pageable pageable) {
-		return postRepository.findTopByPublicationdateAsc(pageable);
+	public Page<Post> findAll(Pageable pageable) {
+		return postRepository.findAll(pageable);
 	}
 
-	public Post getOne(Integer id) {
-		return postRepository.getOne(id);
+	public Post findOne(Integer id) {
+		return postRepository.findOne(id);
 	}
 
 	public void save(Post post) {

@@ -16,11 +16,15 @@ class HomePage extends React.Component {
 	}
 
 	loadPostsFromServer() {
-		let getPostsUrl = '/api/public/posts?limit=' + this.props.perPage + '&offset=' +
-			this.state.offset;
+		let that = this;
+		let getPostsUrl = '/api/public/posts';//?limit=' + this.props.perPage + '&offset=' +
+			//this.state.offset;
 		axios.get(getPostsUrl)
 			.then(function(response) {
 				console.log("response", response);
+				that.setState({
+					data: response.data
+				})
 			})
 			.catch(function(error) {
 				console.log("error", error);
@@ -37,8 +41,6 @@ class HomePage extends React.Component {
 			<div>
 				<h1>Home Page</h1>
 				<PostList data={this.state.data}/>
-				<ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"} />
 			</div>
 		);
 	}

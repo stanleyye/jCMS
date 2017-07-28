@@ -8,7 +8,7 @@ class PostList extends React.Component {
       return (
         <div key={index} className="post">
           <h2>{post.title}</h2>
-          <span>{post.author}</span>
+          <span>{post.author.username}</span>
           <p>{post.content}</p>
         </div>
       )

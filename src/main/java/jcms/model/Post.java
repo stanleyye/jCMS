@@ -36,7 +36,7 @@ public class Post {
     private String content;
 
     @JsonProperty
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn
     private User author;
 }

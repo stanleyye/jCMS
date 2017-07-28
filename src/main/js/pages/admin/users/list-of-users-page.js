@@ -12,6 +12,7 @@ class ListOfUsersPage extends React.Component {
 	}
 
 	componentDidMount() {
+		let that = this;
 		// TODO: Do a GET request for the roles for each user
 		axios.get('/api/private/users')
 			.then(res => {
@@ -24,7 +25,7 @@ class ListOfUsersPage extends React.Component {
 					return user;
 				});
 
-				this.setState({ users });
+				that.setState({ users });
 			})
 			.catch(err => {
 				console.log(err);

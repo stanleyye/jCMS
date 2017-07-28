@@ -80,7 +80,7 @@ class AdminNavHeader extends React.Component {
 						</div>
 
 						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							Hello { this.state.current_user.name } !
+							Hello { this.state.current_user.sub } !
 							<ul className="nav navbar-nav navbar-right">
 								<li className="dropdown">
 									<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
