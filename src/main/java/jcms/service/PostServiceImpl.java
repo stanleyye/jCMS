@@ -14,6 +14,10 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	PostRepository postRepository;
 
+	public void delete(Integer id) {
+		postRepository.delete(id);
+	}
+
 	public List<Post> findAll() {
 		return postRepository.findAll();
 	}

@@ -42,7 +42,6 @@ public class UserController {
 										HttpServletRequest request) {
 		JWTPayload jwtPayload = TokenService.getJwtCookiePayload(request.getCookies());
 		final String roleOfCurrentRequestUser = jwtPayload.getRole();
-		System.out.println("role of current user is: " + roleOfCurrentRequestUser);
 
 		if (roleOfCurrentRequestUser == "author") {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Access has been denied.");
@@ -88,6 +87,14 @@ public class UserController {
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User could not be saved.");
     }
+
+    @RequestMapping(value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteUser(Integer id) {
+    	// TODO: deleting a user requires removing it from the 'user' table
+		// and the 'user_role' table
+
+		return null;
+	}
 
     /**
      * Gets the list of users.

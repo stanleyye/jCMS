@@ -1,6 +1,8 @@
 package jcms.controller;
 
 import jcms.model.Post;
+import jcms.security.JWTPayload;
+import jcms.security.TokenService;
 import jcms.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +34,6 @@ public class PostController {
 		value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.POST
 	)
 	public ResponseEntity<?> createPost(@RequestBody Post post) {
-		// TODO: check permissions using JWT
 		try {
 			postService.save(post);
 		} catch (Exception ex) {
@@ -49,8 +51,17 @@ public class PostController {
 	@RequestMapping(
 		value = PRIVATE_PATH + ROOT_PATH, method = RequestMethod.DELETE
 	)
-	public ResponseEntity<?> deletePost(@RequestParam("id") Integer id) {
-		// TODO: check permissions using JWT
+	public ResponseEntity<?> deletePost(@RequestParam("id") Integer id,
+										HttpServletRequest request) {
+		JWTPayload jwtPayload = TokenService.getJwtCookiePayload(request.getCookies());
+		final String roleOfCurrentRequestUser = jwtPayload.getRole();
+
+		if (roleOfCurrentRequestUser == "author") {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Access has been denied.");
+		}
+
+		postService.delete(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Post has been deleted");
 	}
 
 	/**

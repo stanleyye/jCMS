@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface PostService {
+	void delete(Integer id);
 	List<Post> findAll();
 	Page<Post> findAll(Pageable pageable);
 	Post findOne(Integer id);
