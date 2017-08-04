@@ -2,36 +2,53 @@ import axios from 'axios';
 import React from 'react';
 import { Form, Text } from 'react-form';
 
-const handleLogin = (formData) => {
-	return axios.post('/login', {
-			username: formData.username,
-			password: formData.password
-		})
-		.then(function(response) {
-			console.log("response", response);
-		})
-		.catch(function(error) {
-			console.log("error", error);
-		});
-}
-
 class LoginForm extends React.Component {
+		constructor(props) {
+			super(props);
+
+			this.state = {
+				errorMessage: ""
+			}
+		}
+		// Handles user login authentication
+	handleLogin = (formData) => {
+		return axios.post('/login', {
+				username: formData.username,
+				password: formData.password
+			})
+			.then(function(response) {
+				redirectToAdminPage();
+			})
+			.catch(function(error) {
+				console.log("error", error.response);
+				this.setState({
+					errorMessage: error.response
+				})
+			});
+	}
+
+	// HTTP Redirect (server side routing) to admin page
+	redirectToAdminPage = () => {
+		window.location.replace("/admin");
+	}
+
 	render() {
 		return (
 			<div className="login-form-wrapper">
 				<Form
 					onSubmit={(values) => {
-						console.log('Success!', values);
-						handleLogin(values);
+						this.handleLogin(values);
 					}}
 
-				validate={values => {
-					const { username, password } = values
-					return {
-						username: (!username || username.trim() === '') ? 'A username is required' : null,
-						password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'The password must be at least 8 characters long' : null
-					}
-				}}
+					postSubmit=
+
+					validate={values => {
+						const { username, password } = values
+						return {
+							username: (!username || username.trim() === '') ? 'A username is required' : null,
+							password: (!password || password.trim() === '' || (password && password.length < 8)) ? 'The password must be at least 8 characters long' : null
+						}
+					}}
 				>
 
 				{({submitForm}) => {
@@ -56,6 +73,10 @@ class LoginForm extends React.Component {
 					)
 				}}
 				</Form>
+
+				<div>
+					{ this.state.errorMessage }
+				</div>
 			</div>
 		)
 	}
