@@ -28,13 +28,13 @@ const AdminNavSidebar = () => (
 						id="admin-posts-dropdown"
 					>
 						<LinkContainer to="/admin/posts">
-	          	<MenuItem eventKey={2.1}>All Posts</MenuItem>
-	          </LinkContainer>
+							<MenuItem eventKey={2.1}>All Posts</MenuItem>
+						</LinkContainer>
 
 						<LinkContainer to="/admin/posts/create">
 							<MenuItem eventKey={2.2}>Create a Post</MenuItem>
-	          </LinkContainer>
-	        </NavDropdown>
+						</LinkContainer>
+					</NavDropdown>
 
 					<LinkContainer to="/admin/pages">
 						<NavItem eventKey={3}>
@@ -54,13 +54,13 @@ const AdminNavSidebar = () => (
 						id="admin-users-dropdown"
 					>
 						<LinkContainer to="/admin/users">
-	          	<MenuItem eventKey={4.1}>All Users</MenuItem>
-	          </LinkContainer>
+							<MenuItem eventKey={4.1}>All Users</MenuItem>
+						</LinkContainer>
 
-	          <LinkContainer to="/admin/users/create">
-	          	<MenuItem eventKey={4.2}>Create a user</MenuItem>
-	          </LinkContainer>
-	        </NavDropdown>
+						<LinkContainer to="/admin/users/create">
+							<MenuItem eventKey={4.2}>Create a user</MenuItem>
+						</LinkContainer>
+					</NavDropdown>
 
 					<LinkContainer to="/admin/comments">
 						<NavItem eventKey={5}>

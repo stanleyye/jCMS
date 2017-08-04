@@ -19,6 +19,7 @@ class LoginForm extends React.Component {
 	render() {
 		return (
 			<div className="login-form-wrapper">
+				<h1>Login</h1>
 				<Form
 					onSubmit={(values) => {
 						console.log('Success!', values);

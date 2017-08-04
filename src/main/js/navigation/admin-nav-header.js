@@ -45,58 +45,46 @@ class AdminNavHeader extends React.Component {
 
 	render() {
 		return (
-			<div>
-				{
-					/*
-					<Navbar fluid inverse>
+			<div className="admin-nav-header">
+				<Navbar fluid inverse>
+					<Navbar.Header>
+						<LinkContainer exact to="/">
+							<Navbar.Brand>
+								Site
+							</Navbar.Brand>
+						</LinkContainer>
+						<Navbar.Toggle />
+					</Navbar.Header>
+
 					<Navbar.Collapse>
-						<Nav>
+						<Nav pullRight>
+							<NavItem eventKey={1}>
+								Hello { this.state.current_user.sub } !
+							</NavItem>
+
 							<NavDropdown
 								eventKey={2}
 								title={
 									<span>
-										<i className="glyphicon glyphicon-pencil"></i>
-										Posts
+										<i className="glyphicon glyphicon-cog"></i>
 									</span>
 								}
 								id="admin-posts-dropdown"
 							>
+
+								<LinkContainer to="/admin">
+									<MenuItem eventKey={2.1}>Profile</MenuItem>
+								</LinkContainer>
+
+								<LinkContainer to="/admin">
+									<MenuItem eventKey={2.2}>Settings</MenuItem>
+								</LinkContainer>
+
+								<MenuItem eventKey={2.3}>Logout</MenuItem>
+							</NavDropdown>
 						</Nav>
 					</Navbar.Collapse>
 				</Navbar>
-				*/
-				}
-
-				<nav className="navbar navbar-default">
-					<div className="container-fluid">
-						<div className="navbar-header">
-							<button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-								<span className="sr-only">Toggle navigation</span>
-								<span className="icon-bar"></span>
-								<span className="icon-bar"></span>
-								<span className="icon-bar"></span>
-							</button>
-							<a className="navbar-brand" href="#">Brand</a>
-						</div>
-
-						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							Hello { this.state.current_user.sub } !
-							<ul className="nav navbar-nav navbar-right">
-								<li className="dropdown">
-									<a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-										<span className="caret"></span>
-									</a>
-									<ul className="dropdown-menu">
-										<li><a href="#">Profile</a></li>
-										<li><a href="#">Settings</a></li>
-										<li role="separator" className="divider"></li>
-										<li><a href="#">Logout</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</nav>
 			</div>
 		);
 	}
