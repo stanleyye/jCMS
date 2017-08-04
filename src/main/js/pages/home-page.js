@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from 'react-paginate'
+import { Grid, Row } from 'react-bootstrap'
 
 import PostList from '../widgets/post-list'
 
@@ -38,10 +39,14 @@ class HomePage extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h1>Home Page</h1>
+			<Grid>
+				<Row>
+					<h1>Home Page</h1>
+				</Row>
+
+				{/* PostList is already wrapped in <Row> components */}
 				<PostList data={this.state.data}/>
-			</div>
+			</Grid>
 		);
 	}
 }

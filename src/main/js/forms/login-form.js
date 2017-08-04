@@ -35,6 +35,7 @@ class LoginForm extends React.Component {
 	render() {
 		return (
 			<div className="login-form-wrapper">
+				<h1>Login</h1>
 				<Form
 					onSubmit={(values) => {
 						this.handleLogin(values);

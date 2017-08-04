@@ -1,16 +1,17 @@
 import axios from 'axios'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Row } from 'react-bootstrap'
 
 class PostList extends React.Component {
   render() {
     let posts = this.props.data.map((post, index) => {
       return (
-        <div key={index} className="post">
+        <Row key={index} className="post">
           <h2>{post.title}</h2>
           <span>{post.author.username}</span>
           <p>{post.content}</p>
-        </div>
+        </Row>
       )
     });
 

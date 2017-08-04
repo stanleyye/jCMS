@@ -1,9 +1,28 @@
+.admin-nav-sidebar,
+.admin-nav-header {
+	background-color: $admin-nav-background-color;
+
+	.navbar-inverse {
+		border-color: transparent;
+		background-color: transparent;
+	}
+}
+
+.admin-nav-header {
+	border-bottom: 1px solid $border-light-grey-color;
+
+	.navbar {
+		margin-bottom: 0;
+	}
+}
+
 .admin-nav-sidebar {
 	position: fixed;
 	width: $admin-sidebar-width;
 	height: 100%;
 	background-color: $admin-nav-background-color;
 	border-right: 1px solid $border-light-grey-color;
+	padding: 10px 0;
 
 	.nav {
 		.glyphicon {
@@ -21,15 +40,13 @@
 				&:focus,
 				&:hover {
 					background-color: $admin-sidebar-hover-color;
+					color: #fff;
 				}
 	  	}
 	  }
 	}
 
 	.navbar-inverse {
-		border-color: transparent;
-		background-color: transparent;
-
 		.navbar-nav {
 			> li > a {
 				color: #333;
