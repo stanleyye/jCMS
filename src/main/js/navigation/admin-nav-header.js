@@ -4,26 +4,6 @@ import ReactDOM from 'react-dom'
 import { Nav, NavItem, Navbar, NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-// Gets the value from a specified cookie
-const readCookie = (cookieName) => {
-	let index,
-			arrayOfCookies = document.cookie.split(';'),
-			cookieNameWithEqualOperator = cookieName + "=";
-
-	for (index = 0; index < arrayOfCookies.length; index++) {
-			let cookie = arrayOfCookies[index];
-			while (cookie.charAt(0) == ' ') {
-				cookie = cookie.substring(1,cookie.length)
-			};
-			if (cookie.indexOf(cookieNameWithEqualOperator) == 0) {
-				return cookie.substring(
-					cookieNameWithEqualOperator.length, cookie.length
-				);
-			}
-	}
-	return null;
-}
-
 class AdminNavHeader extends React.Component {
 	constructor(props) {
 		super(props);
@@ -41,6 +21,45 @@ class AdminNavHeader extends React.Component {
 		this.setState({
 			current_user: decodedJWTPayload
 		})
+	}
+
+	// Deletes a specified cookie. Does not work on HTTP only cookies.
+	deleteCookie(cookieName, domain) {
+		if (domain) {
+			document.cookie = cookieName +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=.' + domain + ';';
+		} else {
+			document.cookie = cookieName +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		}
+	}
+
+	logout() {
+		deleteCookie('jCMSCookie', 'localhost:8080');
+		redirectToHomePage();
+	}
+
+	// Gets the value from a specified cookie
+	readCookie(cookieName) {
+		let index,
+				arrayOfCookies = document.cookie.split(';'),
+				cookieNameWithEqualOperator = cookieName + "=";
+
+		for (index = 0; index < arrayOfCookies.length; index++) {
+				let cookie = arrayOfCookies[index];
+				while (cookie.charAt(0) == ' ') {
+					cookie = cookie.substring(1,cookie.length)
+				};
+				if (cookie.indexOf(cookieNameWithEqualOperator) == 0) {
+					return cookie.substring(
+						cookieNameWithEqualOperator.length, cookie.length
+					);
+				}
+		}
+		return null;
+	}
+
+	// HTTP Redirect (server side routing) to home page
+	redirectToHomePage() {
+		window.location.replace("/");
 	}
 
 	render() {
@@ -80,7 +99,9 @@ class AdminNavHeader extends React.Component {
 									<MenuItem eventKey={2.2}>Settings</MenuItem>
 								</LinkContainer>
 
-								<MenuItem eventKey={2.3}>Logout</MenuItem>
+								<MenuItem eventKey={2.3} onClick={logout}>
+									Logout
+								</MenuItem>
 							</NavDropdown>
 						</Nav>
 					</Navbar.Collapse>

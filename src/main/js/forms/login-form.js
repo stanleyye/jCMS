@@ -3,15 +3,15 @@ import React from 'react';
 import { Form, Text } from 'react-form';
 
 class LoginForm extends React.Component {
-		constructor(props) {
-			super(props);
+	constructor(props) {
+		super(props);
 
-			this.state = {
-				errorMessage: ""
-			}
+		this.state = {
+			errorMessage: ""
 		}
+	}
 		// Handles user login authentication
-	handleLogin = (formData) => {
+	handleLogin(formData) {
 		return axios.post('/login', {
 				username: formData.username,
 				password: formData.password
@@ -28,7 +28,7 @@ class LoginForm extends React.Component {
 	}
 
 	// HTTP Redirect (server side routing) to admin page
-	redirectToAdminPage = () => {
+	redirectToAdminPage() {
 		window.location.replace("/admin");
 	}
 
@@ -40,8 +40,6 @@ class LoginForm extends React.Component {
 					onSubmit={(values) => {
 						this.handleLogin(values);
 					}}
-
-					postSubmit=
 
 					validate={values => {
 						const { username, password } = values
