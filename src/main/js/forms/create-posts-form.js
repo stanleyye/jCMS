@@ -5,7 +5,7 @@ import { Form, Text, Textarea } from 'react-form';
 // Create the post
 const CreatePost = (formData) => {
 	console.log(formData);
-	return axios.post('/api/private/posts', formData)
+	axios.post('/api/private/posts', formData)
 		.then(function(response) {
 			console.log("response", response);
 		})

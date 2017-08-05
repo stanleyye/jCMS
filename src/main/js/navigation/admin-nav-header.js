@@ -15,7 +15,7 @@ class AdminNavHeader extends React.Component {
 
 	componentDidMount() {
 		// Get the value (JWT) from the jCMSCookie
-		let jCMSCookieValue = readCookie('jCMSCookie');
+		let jCMSCookieValue = this.readCookie('jCMSCookie');
 		let decodedJWTPayload = jwtDecode(jCMSCookieValue);
 		console.log(decodedJWTPayload);
 		this.setState({
@@ -33,8 +33,8 @@ class AdminNavHeader extends React.Component {
 	}
 
 	logout() {
-		deleteCookie('jCMSCookie', 'localhost:8080');
-		redirectToHomePage();
+		this.deleteCookie('jCMSCookie', 'localhost');
+		this.redirectToHomePage();
 	}
 
 	// Gets the value from a specified cookie
@@ -99,7 +99,7 @@ class AdminNavHeader extends React.Component {
 									<MenuItem eventKey={2.2}>Settings</MenuItem>
 								</LinkContainer>
 
-								<MenuItem eventKey={2.3} onClick={logout}>
+								<MenuItem eventKey={2.3} onClick={this.logout.bind(this)}>
 									Logout
 								</MenuItem>
 							</NavDropdown>

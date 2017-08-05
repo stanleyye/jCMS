@@ -12,16 +12,20 @@ class LoginForm extends React.Component {
 	}
 		// Handles user login authentication
 	handleLogin(formData) {
-		return axios.post('/login', {
+		let that = this;
+
+		axios.post('/login', {
 				username: formData.username,
 				password: formData.password
 			})
 			.then(function(response) {
-				redirectToAdminPage();
+				console.log(response);
+				that.redirectToAdminPage();
 			})
 			.catch(function(error) {
+				console.log(error);
 				console.log("error", error.response);
-				this.setState({
+				that.setState({
 					errorMessage: error.response
 				})
 			});

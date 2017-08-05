@@ -5,7 +5,7 @@ import { Form, Select, Text } from 'react-form';
 // Register the user
 const registerUser = (formData) => {
 	console.log(formData);
-	return axios.post('/api/private/users', formData)
+	axios.post('/api/private/users', formData)
 		.then(function(response) {
 			console.log("response", response);
 		})
