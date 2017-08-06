@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
-	
+
 	public User removeById(Integer id) {
     	return userRepository.removeById(id);
 	};
