@@ -3,6 +3,7 @@ package jcms.service;
 import jcms.model.User;
 import jcms.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,14 +29,16 @@ public class UserServiceImpl implements UserService {
     	return userRepository.findAll();
 	}
 
+	@Cacheable(value = "user", key = "#email", unless = "#result == null")
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+	@Cacheable(value = "user", key = "#username", unless = "#result == null")
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
-
+	
 	public User removeById(Integer id) {
     	return userRepository.removeById(id);
 	};
