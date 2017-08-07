@@ -12,19 +12,27 @@ class HomePage extends React.Component {
 
 		this.state = {
 			data: [],
-			offset: 0
+			page: 1,
+			size: 10
 		}
 	}
 
+	componentDidMount() {
+		this.loadPostsFromServer();
+	}
+
+	// Load the posts from the server
 	loadPostsFromServer() {
 		let that = this;
-		let getPostsUrl = '/api/public/posts';//?limit=' + this.props.perPage + '&offset=' +
-			//this.state.offset;
-		axios.get(getPostsUrl)
+		let postsUrl = '/api/public/posts?page=' + this.state.page +
+											'&size=' + this.state.size;
+
+		axios.get(postsUrl)
 			.then(function(response) {
 				console.log("response", response);
 				that.setState({
-					data: response.data
+					data: response.data.content,
+					numOfPages: response.data.totalPages
 				})
 			})
 			.catch(function(error) {
@@ -33,8 +41,16 @@ class HomePage extends React.Component {
 			});
 	}
 
-	componentDidMount() {
-		this.loadPostsFromServer();
+	// Refresh the posts when the user clicks a pagination button
+	handlePageClick(data) {
+		console.log(data);
+		let that = this;
+		let selectedPage = data.selected;
+
+		// Callback after setting the state
+		this.setState({ page: selectedPage }, function() {
+			that.loadPostsFromServer();
+		});
 	}
 
 	render() {
@@ -45,7 +61,23 @@ class HomePage extends React.Component {
 				</Row>
 
 				{/* PostList is already wrapped in <Row> components */}
-				<PostList data={this.state.data}/>
+				<PostList
+					data={this.state.data}
+				/>
+				<ReactPaginate
+					previousLabel={"previous"}
+					nextLabel={"next"}
+					breakLabel={<a href="">...</a>}
+					breakClassName={"break-label"}
+          pageCount={this.state.pageCount}
+					marginPagesDisplayed={2}
+					pageRangeDisplayed={5}
+					onPageChange={this.handlePageClick.bind(this)}
+					containerClassName={"pagination"}
+					subContainerClassName={"pages pagination"}
+					activeClassName={"active"}
+        />
+
 			</Grid>
 		);
 	}
