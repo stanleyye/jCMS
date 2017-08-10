@@ -20,10 +20,10 @@ Make sure **mySQL and Redis are running.**
 
 ## Building and deploying
 ```bash
-mvn clean spring-boot:run
+./start.sh
 
 # For more logging purposes
-mvn clean spring-boot:run -X
+./start.sh -X
 ```
 
 ## Development mode
