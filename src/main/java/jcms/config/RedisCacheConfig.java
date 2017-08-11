@@ -7,6 +7,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
+// TODO: Set a timeout for caching
 public class RedisCacheConfig extends CachingConfigurerSupport {
 	@Value("${redisHostName}")
 	private String redisHostName;
