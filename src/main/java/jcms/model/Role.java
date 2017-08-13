@@ -3,6 +3,8 @@ package jcms.model;
 import javax.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Role DAO. Used to specify and restrict the access level of a user.
  */
@@ -10,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="role")
-public class Role {
+public class Role implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

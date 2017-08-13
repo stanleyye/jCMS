@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name="user")
-public class User {
+public class User implements Serializable {
 	@JsonProperty
     @Id
     @Column(name = "id")

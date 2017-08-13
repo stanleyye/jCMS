@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @RequiredArgsConstructor
 @Entity
 @Table(name="post")
-public class Post {
+public class Post implements Serializable {
 	@JsonProperty
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
