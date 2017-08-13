@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
 import CreateNewUserForm from '../../../forms/create-users-form'
 
-class CreateUsersPage extends React.Component {
+class CreateUsersPage extends Component {
 	render() {
 		return (
 			<div>

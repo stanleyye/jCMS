@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, Text } from 'react-form';
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
 	constructor(props) {
 		super(props);
 

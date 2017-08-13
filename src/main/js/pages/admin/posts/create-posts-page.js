@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
 import CreatePostsForm from '../../../forms/create-posts-form'
 
-class CreatePostsPage extends React.Component {
+class CreatePostsPage extends Component {
 	render() {
 		return (
 			<div>

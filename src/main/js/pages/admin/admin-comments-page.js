@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-class AdminCommentsPage extends React.Component {
+class AdminCommentsPage extends Component {
 	render() {
 		return (
 			<div>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, Select, Text } from 'react-form';
 
 // Register the user
@@ -14,7 +14,7 @@ const registerUser = (formData) => {
 		});
 }
 
-class RegisterForm extends React.Component {
+class RegisterForm extends Component {
 	constructor(props) {
 		super(props);
 

@@ -5,7 +5,7 @@ The frontend side uses Babel, React and Webpack.
 The build tool and web server include Maven and Tomcat. The data and contents are stored using mySQL.
 
 ## Setting up
-Make sure that you have mySQL 5.x.x and Redis installed.
+Make sure that you have Java 8, mySQL 5.x.x and Redis installed.
 
 Create a mySQL database called 'jcms' (you can change the name but make sure to update it in
 application.properties under datasource url).

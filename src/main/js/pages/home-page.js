@@ -1,12 +1,12 @@
 import axios from 'axios'
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import ReactPaginate from 'react-paginate'
 import { Grid, Row } from 'react-bootstrap'
 
 import PostList from '../widgets/post-list'
 
-class HomePage extends React.Component {
+class HomePage extends Component {
 	constructor(props) {
 		super(props);
 

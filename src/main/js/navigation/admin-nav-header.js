@@ -1,10 +1,10 @@
 import jwtDecode from 'jwt-decode'
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Nav, NavItem, Navbar, NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-class AdminNavHeader extends React.Component {
+class AdminNavHeader extends Component {
 	constructor(props) {
 		super(props);
 

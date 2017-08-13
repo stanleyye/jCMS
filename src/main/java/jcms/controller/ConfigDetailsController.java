@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -42,7 +44,9 @@ public class ConfigDetailsController {
 	@RequestMapping(value = MEMORY_USAGE_DETAILS_PATH, method = RequestMethod.GET)
 	public ResponseEntity<?> getServerMemoryUsageDetails() {
 		final Map<String, Long> memoryDetailsHashMap = getMemoryUsage();
-		return ResponseEntity.status(HttpStatus.OK).body(memoryDetailsHashMap);
+		final List<Map<String, Long>> responseBodyList = new ArrayList<>();
+		responseBodyList.add(memoryDetailsHashMap);
+		return ResponseEntity.status(HttpStatus.OK).body(responseBodyList);
 	}
 
 	/**

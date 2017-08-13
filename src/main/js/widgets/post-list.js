@@ -1,9 +1,9 @@
 import axios from 'axios'
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Row } from 'react-bootstrap'
 
-class PostList extends React.Component {
+class PostList extends Component {
   render() {
     let posts = this.props.data.map((post, index) => {
       return (

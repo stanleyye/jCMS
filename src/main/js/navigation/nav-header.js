@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class NavHeader extends React.Component {
+class NavHeader extends Component {
 	render() {
 		return (
 			<nav className="navbar navbar-default">

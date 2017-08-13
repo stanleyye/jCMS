@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Route, Switch } from 'react-router-dom'
 
 import CreateUsersPage from './users/create-users-page'
 import ListOfUsersPage from './users/list-of-users-page'
 
-class AdminUsersPage extends React.Component {
+class AdminUsersPage extends Component {
 	render() {
 		return (
 			<div>

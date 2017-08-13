@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, Text, Textarea } from 'react-form';
 
 // Create the post
@@ -14,7 +14,7 @@ const CreatePost = (formData) => {
 		});
 }
 
-class CreatePostForm extends React.Component {
+class CreatePostForm extends Component {
 	render() {
 		return (
 			<div className="create-post-form-wrapper">

@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Route, Switch } from 'react-router-dom'
 
 import CreatePostsPage from './posts/create-posts-page'
 import ListOfPostsPage from './posts/list-of-posts-page'
 
-class AdminPostsPage extends React.Component {
+class AdminPostsPage extends Component {
 	render() {
 		return (
 			<div>

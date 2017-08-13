@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-class ListOfUsersPage extends React.Component {
+class ListOfUsersPage extends Component {
 	constructor(props) {
 		super(props);
 

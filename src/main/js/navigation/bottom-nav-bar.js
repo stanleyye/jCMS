@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class BottomNavBar extends React.Component {
+class BottomNavBar extends Component {
 	render() {
 		return (
 			<h4>Bottom nav bar</h4>

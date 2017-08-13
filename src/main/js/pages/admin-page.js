@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Route, Switch } from 'react-router-dom'
 
@@ -12,7 +12,7 @@ import AdminPagesPage from './admin/admin-pages-page'
 import AdminSettingsPage from './admin/admin-settings-page'
 import AdminUsersPage from './admin/admin-users-page'
 
-class AdminPage extends React.Component {
+class AdminPage extends Component {
 	render() {
 		console.log(this.props);
 		return (
