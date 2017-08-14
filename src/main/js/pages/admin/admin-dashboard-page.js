@@ -9,7 +9,8 @@ class AdminDashboardPage extends Component {
 		super(props);
 
 		this.state = {
-			memoryDetails: []
+			memoryDetails: [],
+			totalMemory: 0
 		}
 	}
 
@@ -23,17 +24,24 @@ class AdminDashboardPage extends Component {
 
 				if (res && res.data && res.data.length > 0) {
 					const dictionary = res.data[0];
+					let totalMemory = 0;
 
-					Object.keys(dictionary).forEach(currentKey => {
-						// memoryDetails.push({
-						// 	label: currentKey,
-						// 	value: dictionary[currentKey]
-						// });
-						memoryDetails.push(dictionary[currentKey]);
+					Object.keys(dictionary).forEach( key => {
+						const keyValue = dictionary[key];
+
+						// Remember the total memory size
+						if (key === 'Total') {
+							totalMemory = keyValue;
+						}
+
+						memoryDetails.push({
+							label: key,
+							value: keyValue
+						});
 					});
 
-					that.setState({ memoryDetails });
-					console.log(that.state.memoryDetails);
+					that.setState({memoryDetails, totalMemory});
+					console.log(that.state);
 				}
 
 				console.log(memoryDetails);
@@ -49,21 +57,39 @@ class AdminDashboardPage extends Component {
 			<div>
 				<h1>Admin Dashboard</h1>
 
-				<div>
+				<div className="pie-chart">
+					<div id="pie-chart-details">
+						<h4>
+							{this.state.pieChartDetailsTitle}
+						</h4>
+						<p>
+							{this.state.pieChartDetailsBody}
+						</p>
+					</div>
 					<svg
 						width="100%"
 						height="100%"
 					>
 						<PieChart
-							width="500"
-							height="500"
-							radius="200"
+							width={500}
+							height={500}
+							innerRadius={200 * 0.55}
+							outerRadius={200}
+							padAngle={0.02}
 							data={this.state.memoryDetails}
+							showPieChartDetails={this.showPieChartDetails}
 						/>
 					</svg>
 				</div>
 			</div>
 		);
+	}
+
+	showPieChartDetails(detailsObj) {
+		this.setState({
+			pieChartDetailsTitle: "asdfsdF",
+			pieChartDetailsBody: "asdfsd"
+		})
 	}
 }
 

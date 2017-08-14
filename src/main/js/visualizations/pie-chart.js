@@ -10,25 +10,41 @@ class PieChart extends Component {
     this.renderSlice = this.renderSlice.bind(this);
 	}
 
+	onMouseOut() {
+		// TODO
+	}
+
+	onMouseOver(dataObj) {
+		this.props.showPieChartDetails(dataObj);
+	}
+
 	render() {
-		let { width, height, data } = this.props;
+		let {width, height, data} = this.props;
 		let pie = d3.pie()
 
 		return (
 			<g transform={`translate(${width/2}, ${height/2})`}>
         {/* Render a slice for each data point */}
-        {pie(data).map(this.renderSlice)}
+        {pie.value(d => d.value)(data).map(this.renderSlice)}
       </g>
 		)
 	}
 
-	renderSlice(value, i) {
-    // We'll create this component in a minute
+	renderSlice(generatorObj, i) {
+		let {innerRadius, outerRadius, padAngle} = this.props;
+    console.log(generatorObj);
     return (
-      <PieSlice key={i}
-             outerRadius={this.props.radius}
-             value={value}
-             fill={this.colorScale(i)} />
+      <PieSlice
+      	key={i}
+      	padAngle={padAngle}
+      	innerRadius={innerRadius}
+      	outerRadius={outerRadius}
+        value={generatorObj}
+        label={generatorObj.data.label}
+        fill={this.colorScale(i)}
+        onMouseOver={this.onMouseOver(generatorObj.data).bind(this)}
+        onMouseOut={this.onMouseOut.bind(this)}
+      />
     );
   }
 }

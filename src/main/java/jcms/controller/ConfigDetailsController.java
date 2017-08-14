@@ -92,9 +92,9 @@ public class ConfigDetailsController {
 		long freeMemory = Runtime.getRuntime().freeMemory();
 		long usedMemory = totalMemory - freeMemory;
 
-		memoryDetailsHashMap.put("total", totalMemory);
-		memoryDetailsHashMap.put("free", freeMemory);
-		memoryDetailsHashMap.put("used", usedMemory);
+		memoryDetailsHashMap.put("Total", totalMemory);
+		memoryDetailsHashMap.put("Free", freeMemory);
+		memoryDetailsHashMap.put("Used", usedMemory);
 
 		return memoryDetailsHashMap;
 	}
