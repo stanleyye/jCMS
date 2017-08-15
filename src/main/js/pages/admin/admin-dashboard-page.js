@@ -8,6 +8,8 @@ class AdminDashboardPage extends Component {
 	constructor(props) {
 		super(props);
 
+		this.showPieChartDetails = this.showPieChartDetails.bind(this);
+
 		this.state = {
 			memoryDetails: [],
 			totalMemory: 0
@@ -29,9 +31,11 @@ class AdminDashboardPage extends Component {
 					Object.keys(dictionary).forEach( key => {
 						const keyValue = dictionary[key];
 
-						// Remember the total memory size
+						// Remember the total memory size and continue to the next
+						// iteration
 						if (key === 'Total') {
 							totalMemory = keyValue;
+							return;
 						}
 
 						memoryDetails.push({
@@ -52,13 +56,23 @@ class AdminDashboardPage extends Component {
 			});
 	}
 
+	showPieChartDetails(detailsObj) {
+		const percent = ((detailsObj.value / this.state.totalMemory) * 100).toFixed(2) ;
+		const megabytes = (detailsObj.value / Math.pow(2, 20)).toFixed(2);
+		this.setState({
+			pieChartDetailsTitle: percent + "%",
+			pieChartDetailsBody: megabytes + " MB"
+		})
+	}
+
 	render() {
 		return (
 			<div>
 				<h1>Admin Dashboard</h1>
 
 				<div className="pie-chart">
-					<div id="pie-chart-details">
+					<h3>Memory Usage</h3>
+					<div className="pie-chart-details">
 						<h4>
 							{this.state.pieChartDetailsTitle}
 						</h4>
@@ -66,15 +80,16 @@ class AdminDashboardPage extends Component {
 							{this.state.pieChartDetailsBody}
 						</p>
 					</div>
+
 					<svg
 						width="100%"
 						height="100%"
 					>
 						<PieChart
-							width={500}
-							height={500}
-							innerRadius={200 * 0.55}
-							outerRadius={200}
+							width={325}
+							height={325}
+							innerRadius={130 * 0.65}
+							outerRadius={130}
 							padAngle={0.02}
 							data={this.state.memoryDetails}
 							showPieChartDetails={this.showPieChartDetails}
@@ -83,13 +98,6 @@ class AdminDashboardPage extends Component {
 				</div>
 			</div>
 		);
-	}
-
-	showPieChartDetails(detailsObj) {
-		this.setState({
-			pieChartDetailsTitle: "asdfsdF",
-			pieChartDetailsBody: "asdfsd"
-		})
 	}
 }
 

@@ -92,5 +92,24 @@
 }
 
 .pie-chart {
-	height: 800px;
+	position: relative;
+	height: 450px;
+	width: 340px;
+	padding: 10px;
+
+	.pie-chart-details {
+		text-align: center;
+		position: absolute;
+		left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+	}
+
+	.pie-chart-label {
+		&:hover {
+			cursor: pointer;
+		}
+	}
 }
