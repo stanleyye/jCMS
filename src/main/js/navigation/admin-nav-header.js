@@ -78,7 +78,7 @@ class AdminNavHeader extends Component {
 					<Navbar.Collapse>
 						<Nav pullRight>
 							<NavItem eventKey={1}>
-								Hello { this.state.current_user.sub } !
+								Hello { this.state.current_user.sub }!
 							</NavItem>
 
 							<NavDropdown

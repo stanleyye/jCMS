@@ -27,9 +27,9 @@ public class ConfigDetailsController {
 		final Map<String, Long> fileSizesHashMap;
 		try {
 			fileSizesHashMap =
-				getFileSizesInNonNestedDirectory(Paths.get("/src/main/resources/bundles/"));
+				getFileSizesInNonNestedDirectory(Paths.get("src/main/resources/static/build"));
 		} catch (IOException ioException) {
-			System.out.println(ioException.getStackTrace());
+			ioException.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 								 .body("Error reading bundle files");
 		}
